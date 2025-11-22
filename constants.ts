@@ -378,7 +378,7 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     position: { top: '0', left: '0' }
   },
   warning: {
-    id: 'warning',
+    id: 'warning',=
     title: 'System Notifications',
     category: 'System',
     description: 'No new alerts.\n\n• System is up to date\n• No security threats detected\n• Backup completed successfully at 03:00 AM',
