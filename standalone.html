@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ByChudy OS - Standalone Build</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- React & ReactDOM -->
+  <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  
+  <!-- Framer Motion -->
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide-react@0.292.0/dist/umd/lucide-react.js"></script>
+  
+  <!-- Babel Standalone (for JSX/TSX) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      background-color: #0f172a;
+      color: white;
+    }
+    /* Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" data-presets="react,typescript">
+    /************************************************************
+     * GLOBALS & IMPORTS SHIM
+     ************************************************************/
+    const { useState, useEffect, useRef } = React;
+    const { createRoot } = ReactDOM;
+    const { motion, AnimatePresence, useDragControls } = window.Motion;
+    const { 
+      Mail, Instagram, AlertTriangle, Music, 
+      Image: ImageIcon, Video: VideoIcon, 
+      X, Minus, Maximize2, UploadCloud, Plus, Edit2, Filter 
+    } = window.lucideReact;
+
+    /************************************************************
+     * TYPES & CONSTANTS
+     ************************************************************/
+    
+    // Project Data
+    const PROJECTS = [
+      {
+        id: 'stage-visuals',
+        title: 'Stage visuals',
+        category: 'Various artists',
+        description: "My animations made it beyond the computer screen and became part of live shows for artists like Kacperczyk, Fukaj, and Szaran. Stuff I was grinding out on my laptop ended up on big stages — during concert tours, Open'er, SBM FFestival, Hip-Hop Festival, Rap Stacja, Sun Festival, and even Męskie Granie. I love that something I create in full focus, just me and the screen, can later come to life — surrounded by lights, smoke, and a crowd of people.",
+        thumbnail: 'https://picsum.photos/id/20/200/200',
+        previewImage: 'https://picsum.photos/id/20/800/500',
+        videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+        gallery: [
+          { type: 'image', url: 'https://picsum.photos/id/20/800/500' },
+          { type: 'image', url: 'https://picsum.photos/id/22/800/500' },
+          { type: 'image', url: 'https://picsum.photos/id/24/800/500' },
+          { type: 'image', url: 'https://picsum.photos/id/25/800/500' },
+          { type: 'image', url: 'https://picsum.photos/id/26/600/800' },
+          { type: 'image', url: 'https://picsum.photos/id/27/600/800' },
+          { type: 'image', url: 'https://picsum.photos/id/28/600/800' }
+        ],
+        position: { top: '10%', left: '5%' },
+      },
+      {
+        id: 'hotel-mafija',
+        title: 'HOTEL MAFIJA VINYL',
+        category: 'Print Design',
+        description: 'Visual identity and vinyl packaging design for the Hotel Mafija project.',
+        thumbnail: 'https://picsum.photos/id/30/200/200',
+        previewImage: 'https://picsum.photos/id/30/800/600',
+        position: { top: '5%', left: '40%' },
+      },
+      {
+        id: 'efemmera',
+        title: 'EFEMMERA',
+        category: 'Visual Identity',
+        description: 'Exploration of ephemeral visual concepts through digital media.',
+        thumbnail: 'https://picsum.photos/id/40/200/200',
+        previewImage: 'https://picsum.photos/id/40/800/600',
+        position: { top: '12%', left: '50%' },
+      },
+      {
+        id: 'kajecik',
+        title: 'KAJECIK',
+        category: 'App Design',
+        description: 'A notebook application concept designed for creative professionals.',
+        thumbnail: 'https://picsum.photos/id/50/200/200',
+        previewImage: 'https://picsum.photos/id/50/800/600',
+        position: { top: '15%', left: '75%' },
+      },
+      {
+        id: 'wtf',
+        title: 'WTF',
+        category: 'Music Video',
+        description: 'Direction and editing for the WTF music video.',
+        thumbnail: 'https://picsum.photos/id/60/200/200',
+        previewImage: 'https://picsum.photos/id/60/800/600',
+        videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+        position: { top: '30%', left: '58%' },
+      },
+      {
+        id: 'pierwszy-swag',
+        title: 'PIERWSZY SWAG\nPOLSCE',
+        category: 'Campaign',
+        description: 'Marketing campaign visuals for a major polish fashion drop.',
+        thumbnail: 'https://picsum.photos/id/70/200/200',
+        previewImage: 'https://picsum.photos/id/70/800/600',
+        position: { top: '35%', left: '42%' },
+      },
+      {
+        id: 'trasa-konca',
+        title: 'TRASA KOŃCA\nŚWIATA',
+        category: 'Concert Visuals',
+        description: 'Tour visuals for the End of the World Tour.',
+        thumbnail: 'https://picsum.photos/id/80/200/200',
+        previewImage: 'https://picsum.photos/id/80/800/600',
+        position: { top: '40%', left: '52%' },
+      },
+      {
+        id: 'collage-animations',
+        title: 'COLLAGE ANIMATIONS',
+        category: 'Motion Design',
+        description: 'A series of experimental collage animations.',
+        thumbnail: 'https://picsum.photos/id/90/200/200',
+        previewImage: 'https://picsum.photos/id/90/800/600',
+        videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+        position: { top: '45%', left: '56%' },
+      },
+      {
+        id: 'interludium',
+        title: 'INTERLUDIUM',
+        category: 'Album Art',
+        description: 'Cover art and promotional materials.',
+        thumbnail: 'https://picsum.photos/id/100/200/200',
+        previewImage: 'https://picsum.photos/id/100/800/600',
+        position: { top: '32%', left: '77%' },
+      },
+      {
+        id: 'trasa-po-koncu',
+        title: 'TRASA\nPO KOŃCU ŚWIATA',
+        category: 'Event Design',
+        description: 'Post-apocalyptic event theming and visual direction.',
+        thumbnail: 'https://picsum.photos/id/110/200/200',
+        previewImage: 'https://picsum.photos/id/110/800/600',
+        position: { top: '38%', left: '80%' },
+      },
+      {
+        id: 'solar-bialas',
+        title: 'SOLAR X BIAŁAS',
+        category: 'Branding',
+        description: 'Collaborative branding project.',
+        thumbnail: 'https://picsum.photos/id/120/200/200',
+        previewImage: 'https://picsum.photos/id/120/800/600',
+        position: { top: '50%', left: '70%' },
+      },
+      {
+        id: 'chanel',
+        title: 'CHANEL',
+        category: 'Commercial',
+        description: 'Unofficial commercial concept for Chanel fragrance.',
+        thumbnail: 'https://picsum.photos/id/130/200/200',
+        previewImage: 'https://picsum.photos/id/130/800/600',
+        position: { top: '55%', left: '79%' },
+      },
+      {
+        id: 'sbm-ff24',
+        title: 'SBM FF24',
+        category: 'Festival',
+        description: 'Main stage visuals for SBM FF24.',
+        thumbnail: 'https://picsum.photos/id/140/200/200',
+        previewImage: 'https://picsum.photos/id/140/800/600',
+        position: { top: '45%', left: '88%' },
+      },
+      {
+        id: 'newonce',
+        title: 'NEWONCE',
+        category: 'Media',
+        description: 'Graphics package for Newonce radio.',
+        thumbnail: 'https://picsum.photos/id/150/200/200',
+        previewImage: 'https://picsum.photos/id/150/800/600',
+        position: { top: '65%', left: '62%' },
+      },
+      {
+        id: 'merch',
+        title: 'MERCH',
+        category: 'Fashion',
+        description: 'Merchandise design collection.',
+        thumbnail: 'https://picsum.photos/id/160/200/200',
+        previewImage: 'https://picsum.photos/id/160/800/600',
+        position: { top: '64%', left: '52%' },
+      },
+      {
+        id: 'fantasmagorie',
+        title: 'FANTASMAGORIE',
+        category: 'Art',
+        description: 'Surrealist digital art series.',
+        thumbnail: 'https://picsum.photos/id/170/200/200',
+        previewImage: 'https://picsum.photos/id/170/800/600',
+        position: { top: '70%', left: '45%' },
+      },
+      {
+        id: 'ryk-x-sexed',
+        title: 'RYK X SEXED',
+        category: 'Campaign',
+        description: 'Social awareness campaign graphics.',
+        thumbnail: 'https://picsum.photos/id/180/200/200',
+        previewImage: 'https://picsum.photos/id/180/800/600',
+        position: { top: '78%', left: '72%' },
+      },
+    ];
+
+    const DOCK_ITEMS = [
+      { label: 'After Effects', iconType: 'ae' },
+      { label: 'Photoshop', iconType: 'ps' },
+      { label: 'Illustrator', iconType: 'ai' },
+      { label: 'Terminal', iconType: 'terminal' },
+      { label: 'Notes', iconType: 'notes' },
+      { label: 'Photos', iconType: 'photos' },
+      { label: 'Netease Music', iconType: 'netease' },
+      { label: 'Instagram', iconType: 'insta' },
+      { label: 'Contact', iconType: 'mail' },
+      { label: 'Trash', iconType: 'trash' },
+    ];
+
+    const DOCK_APPS_CONTENT = {
+      ae: {
+        id: 'ae',
+        title: 'Adobe After Effects',
+        category: 'Application',
+        description: 'Create cinematic movie titles, intros, and transitions. Remove an object from a clip. Start a fire or make it rain. Navigate and design in a 3D space. With After Effects, the industry-standard motion graphics and visual effects software, you can take any idea and make it move.',
+        thumbnail: 'https://images.unsplash.com/photo-1626785774573-4b79931fd29a?auto=format&fit=crop&w=100&q=80',
+        previewImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80',
+        position: { top: '0', left: '0' }
+      },
+      ps: {
+        id: 'ps',
+        title: 'Adobe Photoshop',
+        category: 'Application',
+        description: 'From photo editing and compositing to digital painting, animation, and graphic design — you can do it all in Photoshop. Bring ideas to life across desktop and iPad. Magically transform images with the power of AI.',
+        thumbnail: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=100&q=80',
+        previewImage: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=1200&q=80',
+        position: { top: '0', left: '0' }
+      },
+      ai: {
+        id: 'ai',
+        title: 'Adobe Illustrator',
+        category: 'Application',
+        description: 'The industry-standard vector graphics software lets you create everything from web and mobile graphics to logos, icons, book illustrations, product packaging, and billboards.',
+        thumbnail: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=100&q=80',
+        previewImage: 'https://images.unsplash.com/photo-1572044162444-ad6021105507?auto=format&fit=crop&w=1200&q=80',
+        position: { top: '0', left: '0' }
+      },
+      warning: {
+        id: 'warning',
+        title: 'System Notifications',
+        category: 'System',
+        description: 'No new alerts.\n\n• System is up to date\n• No security threats detected\n• Backup completed successfully at 03:00 AM',
+        thumbnail: 'https://images.unsplash.com/photo-1555421689-491a97ff4181?auto=format&fit=crop&w=100&q=80',
+        previewImage: 'https://images.unsplash.com/photo-1555421689-491a97ff4181?auto=format&fit=crop&w=1200&q=80',
+        position: { top: '0', left: '0' }
+      },
+      notes: {
+        id: 'notes',
+        title: 'Notes',
+        category: 'Productivity',
+        description: 'Ideas for next project:\n- Interactive 3D header\n- Physics-based icons\n- Dark/Light mode toggle\n\nTo Do:\n[x] Fix navigation bug\n[ ] Update portfolio content\n[ ] Reply to emails',
+        thumbnail: 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=100&q=80',
+        previewImage: 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1200&q=80',
+        position: { top: '0', left: '0' }
+      },
+      photos: {
+        id: 'photos',
+        title: 'Photos Library',
+        category: 'Gallery',
+        description: 'Displaying recent favorites from Camera Roll. Drag and drop images here to add them.',
+        thumbnail: 'https://images.unsplash.com/photo-1533158326339-7f3cf2404354?auto=format&fit=crop&w=100&q=80',
+        previewImage: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1200&q=80',
+        gallery: [
+          { type: 'image', url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1200&q=80' },
+          { type: 'image', url: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1200&q=80' },
+          { type: 'image', url: 'https://images.unsplash.com/photo-1500634245200-e5245c7574ef?auto=format&fit=crop&w=1200&q=80' },
+          { type: 'image', url: 'https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?auto=format&fit=crop&w=1200&q=80' }
+        ],
+        position: { top: '0', left: '0' }
+      },
+      netease: {
+        id: 'netease',
+        title: 'Netease Cloud Music',
+        category: 'Music',
+        description: 'Now Playing: Daily Recommendation\n\nDiscover new tracks based on your listening history. Your personal radio station is ready.',
+        thumbnail: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&w=100&q=80',
+        previewImage: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80',
+        gallery: [
+           { type: 'image', url: 'https://images.unsplash.com/photo-1514525253440-b393452e3383?auto=format&fit=crop&w=1200&q=80' }, 
+           { type: 'image', url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80' }, 
+           { type: 'image', url: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&w=1200&q=80' }, 
+        ],
+        position: { top: '0', left: '0' }
+      },
+      insta: {
+        id: 'insta',
+        title: 'Instagram',
+        category: 'Social Media',
+        description: 'Latest posts from @bychudy.\n\n"Creating digital experiences that matter."\n\nFollow for more design updates and behind the scenes work.',
+        thumbnail: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=100&q=80',
+        previewImage: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=1200&q=80',
+        position: { top: '0', left: '0' }
+      },
+      mail: {
+        id: 'mail',
+        title: 'Mail',
+        category: 'Communication',
+        description: 'Inbox: 0 Unread Messages\n\nDraft: Project Inquiry\nTo: contact@studio.com\nSubject: Collaboration\n\nHello, I would like to discuss a potential project...',
+        thumbnail: 'https://images.unsplash.com/photo-1557200130-967055729456?auto=format&fit=crop&w=100&q=80',
+        previewImage: 'https://images.unsplash.com/photo-1557200130-967055729456?auto=format&fit=crop&w=1200&q=80',
+        position: { top: '0', left: '0' }
+      },
+      trash: {
+        id: 'trash',
+        title: 'Trash',
+        category: 'System',
+        description: 'Trash is empty.',
+        thumbnail: 'https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?auto=format&fit=crop&w=100&q=80',
+        previewImage: 'https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?auto=format&fit=crop&w=1200&q=80',
+        position: { top: '0', left: '0' }
+      }
+    };
+
+    /************************************************************
+     * COMPONENT: DesktopIcon
+     ************************************************************/
+    const DesktopIcon = ({ project, onClick, onUpdateMedia }) => {
+      const isDragging = useRef(false);
+      const fileInputRef = useRef(null);
+
+      const handleContextMenu = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        fileInputRef.current?.click();
+      };
+
+      const handleFileChange = (e) => {
+        const file = e.target.files?.[0];
+        if (file) {
+          onUpdateMedia(project.id, file);
+        }
+      };
+
+      const handleDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const file = e.dataTransfer.files?.[0];
+        if (file) {
+          onUpdateMedia(project.id, file);
+        }
+      };
+
+      const handleDragOver = (e) => {
+        e.preventDefault();
+      };
+
+      const getDisplayThumbnail = () => {
+        if (project.gallery && project.gallery.length > 0) {
+          const firstImage = project.gallery.find(m => m.type === 'image');
+          if (firstImage) return firstImage.url;
+        }
+        if (project.previewImage) return project.previewImage;
+        return project.thumbnail;
+      };
+
+      const displaySrc = getDisplayThumbnail();
+
+      return (
+        <React.Fragment>
+          <input 
+            type="file" 
+            ref={fileInputRef}
+            className="hidden"
+            accept="image/*,video/*"
+            onChange={handleFileChange}
+          />
+          <motion.div
+            drag
+            dragMomentum={false}
+            onDragStart={() => { isDragging.current = true; }}
+            onDragEnd={() => { 
+              setTimeout(() => isDragging.current = false, 50); 
+            }}
+            whileDrag={{ scale: 1.1, zIndex: 50, cursor: 'grabbing' }}
+            whileTap={{ scale: 0.95, cursor: 'grabbing' }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="absolute flex flex-col items-center gap-1.5 group cursor-grab w-24 z-10 select-none hover:z-30"
+            style={{ top: project.position.top, left: project.position.left }}
+            onClick={(e) => {
+              if (!isDragging.current) {
+                onClick(project);
+              }
+            }}
+            onContextMenu={handleContextMenu}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+          >
+            <div className="relative w-14 h-14 md:w-16 md:h-16 bg-gray-800 rounded-sm shadow-[0_10px_20px_rgba(0,0,0,0.5)] overflow-hidden ring-2 ring-transparent group-hover:ring-white/30 transition-all">
+              <img 
+                src={displaySrc} 
+                alt={project.title} 
+                className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity pointer-events-none"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                 <div className="text-[8px] text-white font-mono uppercase tracking-wider bg-black/50 px-1 rounded backdrop-blur">
+                   Edit
+                 </div>
+              </div>
+            </div>
+            <span className="text-[10px] md:text-[11px] font-semibold text-white text-center leading-tight whitespace-pre-line drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] px-1 rounded-sm group-hover:bg-blue-600/80 group-hover:drop-shadow-none transition-colors">
+              {project.title}
+            </span>
+          </motion.div>
+        </React.Fragment>
+      );
+    };
+
+    /************************************************************
+     * COMPONENT: Dock
+     ************************************************************/
+    const DockIconGraphic = ({ type }) => {
+      const baseClass = "w-12 h-12 md:w-14 md:h-14 rounded-[14px] shadow-xl flex items-center justify-center text-white text-xl md:text-2xl font-sans font-bold relative overflow-hidden ring-1 ring-white/10 select-none pointer-events-none";
+
+      switch (type) {
+        case 'ae':
+          return (
+            <div className={`${baseClass} bg-[#00005b] text-[#d6bbfb] border-[0.5px] border-[#d6bbfb]/20`}>
+              <span className="mt-0.5 tracking-tight">Ae</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+            </div>
+          );
+        case 'ps':
+          return (
+            <div className={`${baseClass} bg-[#001e36] text-[#31a8ff] border-[0.5px] border-[#31a8ff]/20`}>
+              <span className="mt-0.5 tracking-tight">Ps</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+            </div>
+          );
+        case 'ai':
+          return (
+            <div className={`${baseClass} bg-[#330000] text-[#ff9a00] border-[0.5px] border-[#ff9a00]/20`}>
+              <span className="mt-0.5 tracking-tight">Ai</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+            </div>
+          );
+        case 'terminal':
+          return (
+            <div className={`${baseClass} bg-[#1a1b1e] border-[0.5px] border-gray-600`}>
+              <div className="text-[#4ade80] font-mono text-lg font-bold mr-1">{`>_`}</div>
+              <div className="absolute top-1 left-0 w-full h-[1px] bg-white/10"></div>
+            </div>
+          );
+        case 'warning':
+          return (
+            <div className={`${baseClass} bg-[#fbbf24] flex items-center justify-center`}>
+               <AlertTriangle className="w-8 h-8 text-white fill-white stroke-2" />
+            </div>
+          );
+        case 'notes':
+          return (
+            <div className={`${baseClass} bg-white flex flex-col border border-gray-200`}>
+               <div className="h-[28%] w-full bg-[#fde047] border-b border-gray-300/50" />
+               <div className="flex-1 w-full p-2.5 flex flex-col gap-1.5 items-start justify-start opacity-60">
+                  <div className="w-full h-1 bg-gray-300 rounded-full" />
+                  <div className="w-full h-1 bg-gray-300 rounded-full" />
+                  <div className="w-2/3 h-1 bg-gray-300 rounded-full" />
+               </div>
+            </div>
+          );
+        case 'photos':
+          return (
+            <div className={`${baseClass} bg-white relative border border-gray-200`}>
+               <div className="absolute inset-0 flex items-center justify-center">
+                  {['#ff9c00', '#ffcc00', '#84cc16', '#10b981', '#06b6d4', '#3b82f6', '#a855f7', '#f43f5e'].map((color, i) => (
+                    <div key={i} className="absolute w-3 h-7 rounded-full mix-blend-multiply opacity-90 shadow-sm" style={{ backgroundColor: color, transform: `rotate(${i * 45}deg) translateY(-7px)` }} />
+                  ))}
+               </div>
+            </div>
+          );
+        case 'netease':
+          return (
+            <div className={`${baseClass} bg-[#dd001b] flex items-center justify-center`}>
+               <div className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center">
+                  <Music className="w-4 h-4 text-white fill-current" />
+               </div>
+            </div>
+          );
+        case 'insta':
+          return (
+            <div className={`${baseClass} bg-gradient-to-tr from-[#feda75] via-[#fa7e1e] to-[#d62976]`}>
+              <Instagram className="w-8 h-8 text-white stroke-[2.5]" />
+            </div>
+          );
+        case 'mail':
+          return (
+            <div className={`${baseClass} bg-[#3b82f6]`}>
+              <Mail className="w-8 h-8 text-white fill-white" />
+            </div>
+          );
+        case 'trash':
+          return (
+            <div className={`${baseClass} bg-transparent !shadow-none !ring-0 overflow-visible`}>
+               <div className="w-10 h-12 md:w-12 md:h-14 bg-gradient-to-b from-white/30 to-white/10 rounded-b-[14px] border-x-[0.5px] border-b-[0.5px] border-white/40 backdrop-blur-[2px] relative flex items-end justify-center pb-1 shadow-lg">
+                  <div className="absolute inset-0 rounded-b-[14px] opacity-30 bg-[linear-gradient(0deg,rgba(255,255,255,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.5)_1px,transparent_1px)] bg-[size:4px_4px]" />
+                  <div className="absolute bottom-2 left-2 w-3 h-3 bg-white/90 rounded-full shadow-sm rotate-12" />
+                  <div className="absolute bottom-3 right-2 w-3.5 h-3.5 bg-white/90 rounded-full shadow-sm -rotate-12" />
+                  <div className="absolute bottom-5 left-3.5 w-3 h-3 bg-white/90 rounded-full shadow-sm rotate-45" />
+               </div>
+            </div>
+          );
+        default:
+          return <div className={baseClass} />;
+      }
+    };
+
+    const Separator = () => (
+      <div className="w-[1px] h-8 md:h-10 bg-white/15 mx-1.5 md:mx-2 rounded-full" />
+    );
+
+    const Dock = ({ onAppClick }) => {
+      const activeIndices = [0, 1, 2, 6, 7, 8];
+
+      return (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-auto">
+          <motion.div 
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 100, damping: 15, delay: 0.5 }}
+            className="flex items-center px-3 py-3 bg-black/20 backdrop-blur-2xl border border-white/10 rounded-[24px] md:rounded-[32px] shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+          >
+            {DOCK_ITEMS.map((item, index) => {
+              const showSeparatorAfter = index === 2 || index === 8;
+              const isActive = activeIndices.includes(index);
+
+              return (
+                <React.Fragment key={index}>
+                  <motion.div 
+                    className="group relative flex flex-col items-center mx-1 md:mx-1.5 cursor-pointer"
+                    onClick={() => onAppClick(item.iconType)}
+                    whileHover={{ scale: 1.2, y: -15 }}
+                    whileTap={{ scale: 0.85 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                     <div className="absolute -top-16 opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-gray-900/90 text-white text-[11px] px-2.5 py-1 rounded-md pointer-events-none backdrop-blur-sm shadow-xl whitespace-nowrap font-medium border border-white/10 z-20">
+                       {item.label}
+                       <div className="absolute -bottom-[4px] left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900/90 rotate-45 border-r border-b border-white/10"></div>
+                     </div>
+                     
+                     <DockIconGraphic type={item.iconType} />
+                     
+                     <div className={`w-1 h-1 bg-white/60 rounded-full mt-1.5 absolute -bottom-2.5 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`} />
+                  </motion.div>
+                  {showSeparatorAfter && <Separator />}
+                </React.Fragment>
+              );
+            })}
+          </motion.div>
+        </div>
+      );
+    };
+
+    /************************************************************
+     * COMPONENT: Window
+     ************************************************************/
+    const Window = ({ project, onClose, onAddMedia }) => {
+      const [isDraggingFile, setIsDraggingFile] = useState(false);
+      const dragControls = useDragControls();
+      const [neteaseId, setNeteaseId] = useState('3778678'); 
+      const [isEditingId, setIsEditingId] = useState(false);
+      const fileInputRef = useRef(null);
+
+      if (!project) return null;
+
+      const mediaList = project.gallery && project.gallery.length > 0 
+        ? project.gallery 
+        : [
+            ...(project.videoUrl ? [{ type: 'video', url: project.videoUrl }] : []),
+            { type: 'image', url: project.previewImage }
+          ];
+      
+      const getInfoThumbnail = () => {
+        if (project.gallery && project.gallery.length > 0) {
+          const firstImage = project.gallery.find(m => m.type === 'image');
+          if (firstImage) return firstImage.url;
+        }
+        if (project.previewImage) return project.previewImage;
+        return project.thumbnail;
+      };
+
+      const infoThumbnail = getInfoThumbnail();
+      
+      const handleDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!isDraggingFile) setIsDraggingFile(true);
+      };
+
+      const handleDragLeave = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDraggingFile(false);
+      };
+
+      const handleDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDraggingFile(false);
+        const file = e.dataTransfer.files?.[0];
+        if (file && onAddMedia) {
+          onAddMedia(file);
+        }
+      };
+
+      const handleUploadClick = () => {
+        fileInputRef.current?.click();
+      };
+
+      const handleFileChange = (e) => {
+        const file = e.target.files?.[0];
+        if (file && onAddMedia) {
+          onAddMedia(file);
+        }
+      };
+
+      return (
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            drag
+            dragListener={false} 
+            dragControls={dragControls}
+            dragMomentum={false}
+            dragElastic={0.1}
+            className="fixed top-10 md:top-24 left-4 md:left-24 z-40 w-[90vw] md:w-[800px] max-h-[85vh] bg-[#e8e8e8]/95 backdrop-blur-2xl rounded-xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] border border-white/40 overflow-hidden flex flex-col"
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
+            {isDraggingFile && (
+              <div className="absolute inset-0 z-50 bg-blue-500/20 backdrop-blur-sm border-4 border-blue-500 border-dashed m-2 rounded-lg flex flex-col items-center justify-center pointer-events-none">
+                 <UploadCloud className="w-16 h-16 text-blue-600 mb-2" />
+                 <span className="text-blue-700 font-bold text-lg">Drop to add to gallery</span>
+              </div>
+            )}
+
+            <div 
+              className="h-9 bg-[#dfdfdf] border-b border-[#c5c5c5] flex items-center px-4 justify-between shrink-0 z-20 select-none cursor-grab active:cursor-grabbing"
+              onPointerDown={(e) => {
+                dragControls.start(e);
+              }}
+            >
+              <div className="flex gap-2 group" onPointerDown={(e) => e.stopPropagation()}>
+                <button onClick={onClose} className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e] flex items-center justify-center hover:brightness-90 active:brightness-75 transition-all">
+                  <X className="w-2 h-2 text-black/50 opacity-0 group-hover:opacity-100" />
+                </button>
+                <button className="w-3 h-3 rounded-full bg-[#febc2e] border border-[#d8a126] flex items-center justify-center hover:brightness-90 transition-all">
+                  <Minus className="w-2 h-2 text-black/50 opacity-0 group-hover:opacity-100" />
+                </button>
+                <button className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1ea832] flex items-center justify-center hover:brightness-90 transition-all">
+                  <Maximize2 className="w-2 h-2 text-black/50 opacity-0 group-hover:opacity-100" />
+                </button>
+              </div>
+              <span className="text-xs font-semibold text-gray-600 tracking-wide opacity-80">{project.title.replace('\n', ' ')}</span>
+              <div className="w-10" /> 
+            </div>
+
+            {project.id === 'netease' ? (
+              <div className="flex-1 bg-[#f3f3f3] flex flex-col items-center justify-center p-4 md:p-8">
+                <div className="w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-200">
+                   <div className="p-4 bg-[#dd001b] flex items-center justify-between text-white shadow-md z-10 relative">
+                      <div className="flex items-center gap-3">
+                         <div className="bg-black/20 p-1.5 rounded-full"><Music className="w-5 h-5" /></div>
+                         <div className="flex flex-col">
+                            <span className="font-bold text-base leading-tight">Netease Cloud Music</span>
+                            <span className="text-[10px] opacity-80 uppercase tracking-wider font-medium">Embedded Player</span>
+                         </div>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm bg-black/20 pl-3 pr-1 py-1 rounded-full border border-white/10">
+                          <span className="opacity-70 text-xs font-medium">Playlist ID:</span>
+                          {isEditingId ? (
+                            <input 
+                              autoFocus
+                              className="bg-white/90 text-black rounded px-1.5 py-0.5 border-none outline-none w-24 text-center text-xs font-mono"
+                              defaultValue={neteaseId}
+                              onBlur={(e) => { if(e.target.value) setNeteaseId(e.target.value); setIsEditingId(false); }}
+                              onKeyDown={(e) => { if(e.key === 'Enter') { if(e.currentTarget.value) setNeteaseId(e.currentTarget.value); setIsEditingId(false); }}}
+                            />
+                          ) : (
+                            <div onClick={() => setIsEditingId(true)} className="group/edit flex items-center gap-2 cursor-pointer hover:bg-white/10 px-2 py-0.5 rounded transition-colors">
+                               <span className="font-mono font-bold">{neteaseId}</span>
+                               <Edit2 className="w-3 h-3 opacity-50 group-hover/edit:opacity-100" />
+                            </div>
+                          )}
+                      </div>
+                   </div>
+                   <div className="w-full bg-gray-50 relative">
+                      <div className="absolute inset-0 flex items-center justify-center text-gray-300 bg-gray-100 -z-0"><Music className="w-12 h-12 animate-pulse" /></div>
+                      <iframe key={neteaseId} frameBorder="no" width="100%" height="430" src={`https://music.163.com/outchain/player?type=0&id=${neteaseId}&auto=1&height=430`} className="relative z-10 block"></iframe>
+                   </div>
+                   <div className="px-4 py-3 bg-gray-50 text-[11px] text-gray-400 text-center border-t border-gray-200">Tip: Click the Playlist ID above to load your own public playlist.</div>
+                </div>
+             </div>
+            ) : (
+              <div className="flex-1 overflow-y-auto bg-[#f3f3f3] flex flex-col custom-scrollbar">
+                  <div className="p-8 bg-white/60 border-b border-gray-200 backdrop-blur-sm">
+                    <div className="flex items-start gap-6">
+                        <div className="w-24 h-24 bg-gray-100 rounded-xl overflow-hidden shrink-0 shadow-md border border-white/50">
+                          <img src={infoThumbnail} alt="" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex-1 pt-1">
+                          <h2 className="text-2xl font-bold text-gray-900 leading-tight mb-1">{project.title}</h2>
+                          <p className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-4">{project.category}</p>
+                          <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-wrap max-w-2xl">{project.description}</p>
+                        </div>
+                    </div>
+                  </div>
+                  <div className="p-6 md:px-8 pb-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                      {mediaList.map((item, idx) => {
+                        const isFullWidth = idx % 3 === 0;
+                        const colSpanClass = isFullWidth ? "md:col-span-2" : "md:col-span-1";
+                        const aspectClass = isFullWidth ? "aspect-video" : "aspect-[4/3]";
+                        return (
+                          <motion.div 
+                            key={idx} 
+                            className={`relative ${colSpanClass} ${aspectClass} group z-0 hover:z-10`}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                          >
+                            <motion.div
+                              className="w-full h-full relative rounded-xl overflow-hidden bg-gray-100 shadow-sm"
+                              whileHover={{ y: -10, scale: 1.02, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)" }}
+                              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            >
+                                {item.type === 'video' ? (
+                                    <video src={item.url} controls className="w-full h-full object-cover" preload="metadata" />
+                                ) : (
+                                    <>
+                                      <motion.img 
+                                        src={item.url} 
+                                        alt={`Media ${idx + 1}`} 
+                                        className="w-full h-full object-cover"
+                                        whileHover={{ scale: 1.1 }}
+                                        transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                      />
+                                      <div className="absolute inset-0 pointer-events-none">
+                                          <div className="absolute inset-0 border border-white/10 rounded-xl z-20" />
+                                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                                          <motion.div 
+                                              className="absolute -top-[50%] -bottom-[50%] w-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-25 z-20 blur-sm"
+                                              initial={{ x: "-200%", opacity: 0 }}
+                                              whileHover={{ x: "400%", opacity: 1 }}
+                                              transition={{ duration: 1.5, ease: "easeInOut" }}
+                                          />
+                                      </div>
+                                    </>
+                                )}
+                            </motion.div>
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+                    <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileChange} accept="image/*,video/*" />
+                    <motion.button 
+                      whileHover={{ scale: 1.01, backgroundColor: "#fff" }}
+                      whileTap={{ scale: 0.99 }}
+                      onClick={handleUploadClick}
+                      className="w-full mt-8 py-6 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center text-gray-400 hover:border-blue-400 hover:text-blue-500 transition-colors gap-2 bg-gray-50/50"
+                    >
+                      <Plus className="w-6 h-6" />
+                      <span className="font-medium">Add more images or videos</span>
+                    </motion.button>
+                  </div>
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+      );
+    };
+
+    /************************************************************
+     * COMPONENT: Terminal
+     ************************************************************/
+    const Terminal = ({ isOpen, onClose, projects, onOpenProject, onSpecialCommand }) => {
+      const [lines, setLines] = useState([
+        { type: 'output', text: 'Last login: ' + new Date().toUTCString() + ' on ttys000' },
+        { type: 'output', text: 'Type "help" for available commands.' }
+      ]);
+      const [inputValue, setInputValue] = useState('');
+      const inputRef = useRef(null);
+      const endRef = useRef(null);
+
+      useEffect(() => {
+        if (isOpen && inputRef.current) {
+          inputRef.current.focus();
+          endRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, [isOpen, lines]);
+
+      const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+          const command = inputValue; 
+          const newLines = [...lines, { type: 'input', text: command }];
+          processCommand(command.trim(), newLines);
+          setInputValue('');
+        }
+      };
+
+      const processCommand = (cmd, currentHistory) => {
+        if (!cmd) { setLines(currentHistory); return; }
+        const args = cmd.split(' ');
+        const mainCommand = args[0].toLowerCase();
+        const arg = args.slice(1).join(' ');
+        let response = '';
+
+        switch (mainCommand) {
+          case 'help':
+            response = `Available commands:\n  ls\n  open [name]\n  [name]\n  fireworks\n  clear\n  date\n  whoami`; break;
+          case 'ls':
+            response = projects.map(p => p.title).join('\n'); break;
+          case 'clear':
+            setLines([]); return;
+          case 'date':
+            response = new Date().toString(); break;
+          case 'whoami':
+            response = 'guest@portfolio-os'; break;
+          case 'fireworks':
+          case '烟花':
+            response = 'Launching fireworks sequence... 🎆';
+            if (onSpecialCommand) onSpecialCommand('fireworks');
+            break;
+          case 'open':
+            if (!arg) { response = 'Usage: open [filename]'; } else {
+              const found = projects.find(p => p.title.toLowerCase().includes(arg.toLowerCase()));
+              if (found) { response = `Opening "${found.title}"...`; onOpenProject(found); } else { response = `File not found: ${arg}`; }
+            }
+            break;
+          default:
+            const shortcutFound = projects.find(p => p.title.toLowerCase().includes(cmd.toLowerCase()));
+            if (shortcutFound) { response = `Opening "${shortcutFound.title}"...`; onOpenProject(shortcutFound); } else { response = `zsh: command not found: ${mainCommand}`; }
+            break;
+        }
+        setLines([...currentHistory, { type: 'output', text: response }]);
+      };
+
+      if (!isOpen) return null;
+
+      return (
+        <AnimatePresence>
+           <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: 100 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 100 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            drag
+            dragMomentum={false}
+            className="fixed top-20 left-20 md:top-1/3 md:left-1/3 z-50 w-[90vw] md:w-[600px] h-[400px] bg-[#1a1b1e]/95 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700 flex flex-col overflow-hidden font-mono"
+          >
+            <div className="h-8 bg-[#2b2d31] border-b border-gray-700 flex items-center px-4 justify-between shrink-0 cursor-grab active:cursor-grabbing" onPointerDown={(e) => { e.target.closest('.framer-motion-div')?.setPointerCapture(e.pointerId); }}>
+               <div className="flex gap-2 group">
+                <button onClick={onClose} className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e] flex items-center justify-center hover:brightness-90"><X className="w-2 h-2 text-black/50 opacity-0 group-hover:opacity-100" /></button>
+                <button className="w-3 h-3 rounded-full bg-[#febc2e] border border-[#d8a126]" />
+                <button className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1ea832]" />
+              </div>
+              <div className="text-gray-400 text-xs">guest — -zsh — 80x24</div>
+              <div className="w-10"></div>
+            </div>
+            <div className="flex-1 p-4 overflow-y-auto text-sm md:text-[13px] leading-relaxed text-white custom-scrollbar" onClick={() => inputRef.current?.focus()}>
+              {lines.map((line, i) => (
+                <div key={i} className={`${line.type === 'output' ? 'text-gray-300 whitespace-pre-wrap mb-1' : 'text-white font-bold mt-2'}`}>
+                   {line.type === 'input' && <span className="text-[#4ade80] mr-2">➜  ~</span>}{line.text}
+                </div>
+              ))}
+              <div className="flex items-center text-white font-bold mt-2">
+                <span className="text-[#4ade80] mr-2">➜  ~</span>
+                <input ref={inputRef} type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={handleKeyDown} className="bg-transparent border-none outline-none flex-1 text-white caret-white" autoComplete="off" spellCheck="false" />
+              </div>
+              <div ref={endRef} />
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      );
+    };
+
+    /************************************************************
+     * COMPONENT: Fireworks
+     ************************************************************/
+    const Fireworks = ({ onComplete }) => {
+      const canvasRef = useRef(null);
+
+      useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+
+        const resizeHandler = () => { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; };
+        window.addEventListener('resize', resizeHandler);
+
+        const particles = [];
+        const rockets = [];
+        const colors = ['#ff0043', '#14fc56', '#1e90ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
+
+        class Particle {
+          constructor(x, y, color) {
+            this.x = x; this.y = y;
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 5 + 2;
+            this.vx = Math.cos(angle) * speed; this.vy = Math.sin(angle) * speed;
+            this.alpha = 1; this.color = color; this.decay = Math.random() * 0.015 + 0.01;
+          }
+          update() { this.x += this.vx; this.y += this.vy; this.vy += 0.05; this.vx *= 0.95; this.vy *= 0.95; this.alpha -= this.decay; }
+          draw(ctx) { ctx.globalAlpha = this.alpha; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI * 2); ctx.fill(); }
+        }
+
+        class Rocket {
+          constructor() {
+            this.x = Math.random() * width; this.y = height;
+            this.vy = -(Math.random() * 5 + 12); this.color = colors[Math.floor(Math.random() * colors.length)];
+            this.exploded = false;
+          }
+          update() { this.y += this.vy; this.vy += 0.15; if (this.vy >= -2) { this.explode(); } }
+          explode() { this.exploded = true; for (let i = 0; i < 80; i++) { particles.push(new Particle(this.x, this.y, this.color)); } ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'; ctx.fillRect(0, 0, width, height); }
+          draw(ctx) { if (this.exploded) return; ctx.globalAlpha = 1; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 3, 0, Math.PI * 2); ctx.fill(); ctx.beginPath(); ctx.moveTo(this.x, this.y); ctx.lineTo(this.x, this.y + 10); ctx.strokeStyle = this.color; ctx.stroke(); }
+        }
+
+        let animationFrameId;
+        let startTime = Date.now();
+        const DURATION = 6000;
+        let spawning = true;
+
+        const loop = () => {
+          ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; ctx.fillRect(0, 0, width, height);
+          ctx.globalCompositeOperation = 'lighter';
+
+          if (Date.now() - startTime > DURATION) spawning = false;
+          if (spawning && Math.random() < 0.05) rockets.push(new Rocket());
+
+          for (let i = rockets.length - 1; i >= 0; i--) { rockets[i].update(); rockets[i].draw(ctx); if (rockets[i].exploded) rockets.splice(i, 1); }
+          for (let i = particles.length - 1; i >= 0; i--) { particles[i].update(); particles[i].draw(ctx); if (particles[i].alpha <= 0) particles.splice(i, 1); }
+
+          if (!spawning && rockets.length === 0 && particles.length === 0) { cancelAnimationFrame(animationFrameId); onComplete(); return; }
+          animationFrameId = requestAnimationFrame(loop);
+        };
+        loop();
+        return () => { window.removeEventListener('resize', resizeHandler); cancelAnimationFrame(animationFrameId); };
+      }, [onComplete]);
+      return <canvas ref={canvasRef} className="fixed inset-0 z-[100] pointer-events-none" />;
+    };
+
+    /************************************************************
+     * MAIN APP
+     ************************************************************/
+    const DEFAULT_WALLPAPER = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2000&q=80";
+
+    const App = () => {
+      const [projects, setProjects] = useState(PROJECTS);
+      const [dockApps, setDockApps] = useState(DOCK_APPS_CONTENT);
+      const [activeProject, setActiveProject] = useState(PROJECTS[0]);
+      const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+      const [wallpaper, setWallpaper] = useState(DEFAULT_WALLPAPER);
+      const [showFireworks, setShowFireworks] = useState(false);
+      const wallpaperInputRef = useRef(null);
+
+      const handleIconClick = (project) => { setActiveProject(project); };
+      const handleDockIconClick = (appId) => {
+        if (appId === 'terminal') { setIsTerminalOpen(true); return; }
+        const content = dockApps[appId];
+        if (content) { setActiveProject(content); }
+      };
+      const handleCloseWindow = () => { setActiveProject(null); };
+      const handleTerminalSpecialCommand = (cmd) => { if (cmd === 'fireworks') setShowFireworks(true); };
+
+      const handleProjectMediaUpdate = (projectId, file) => {
+        const fileUrl = URL.createObjectURL(file);
+        const isVideo = file.type.startsWith('video/');
+        const isImage = file.type.startsWith('image/');
+        const newMediaItem = { type: isVideo ? 'video' : 'image', url: fileUrl };
+
+        const updateProjectData = (p) => {
+          const updated = { ...p };
+          if (!updated.gallery) {
+            updated.gallery = [...(updated.videoUrl ? [{ type: 'video', url: updated.videoUrl }] : []), { type: 'image', url: updated.previewImage }];
+          }
+          updated.gallery = [...updated.gallery, newMediaItem];
+          if (isImage) { updated.thumbnail = fileUrl; updated.previewImage = fileUrl; }
+          if (isVideo) updated.videoUrl = fileUrl;
+          return updated;
+        };
+
+        const isDesktopProject = projects.some(p => p.id === projectId);
+        if (isDesktopProject) {
+          setProjects(prev => prev.map(p => { if (p.id === projectId) { const updated = updateProjectData(p); if (activeProject && activeProject.id === projectId) setActiveProject(updated); return updated; } return p; }));
+        } else {
+          setDockApps(prev => { const updated = { ...prev }; if (updated[projectId]) { updated[projectId] = updateProjectData(updated[projectId]); if (activeProject && activeProject.id === projectId) setActiveProject(updated[projectId]); } return updated; });
+        }
+      };
+
+      const handleWindowAddMedia = (file) => { if (activeProject) { handleProjectMediaUpdate(activeProject.id, file); } };
+      const handleWallpaperChange = (e) => { const file = e.target.files?.[0]; if (file) { setWallpaper(URL.createObjectURL(file)); } };
+      const handleBackgroundContextMenu = (e) => { e.preventDefault(); wallpaperInputRef.current?.click(); };
+
+      return (
+        <div className="relative w-screen h-screen overflow-hidden bg-gray-900 text-sans select-none">
+          {showFireworks && <Fireworks onComplete={() => setShowFireworks(false)} />}
+          <input type="file" ref={wallpaperInputRef} className="hidden" accept="image/*" onChange={handleWallpaperChange} />
+          <div className="absolute inset-0 z-0 cursor-default" onContextMenu={handleBackgroundContextMenu}>
+            <img src={wallpaper} alt="Desktop Wallpaper" className="w-full h-full object-cover object-center" draggable={false} />
+            <div className="absolute bottom-2 right-2 text-white/30 text-[10px] pointer-events-none opacity-0 hover:opacity-100 transition-opacity">Right-click to change wallpaper</div>
+          </div>
+          <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
+            <div className="w-full h-full relative scale-75 md:scale-100 origin-top-left pointer-events-auto">
+               {projects.map((project) => (
+                 <DesktopIcon key={project.id} project={project} onClick={handleIconClick} onUpdateMedia={handleProjectMediaUpdate} />
+               ))}
+            </div>
+            <div className="absolute top-20 right-10 flex flex-col gap-4 items-end pointer-events-none">
+               <div className="w-12 h-12 bg-gray-100/50 rounded-full backdrop-blur-md flex items-center justify-center shadow-lg relative">
+                   <Filter className="text-gray-800 w-5 h-5" />
+                   <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold border-2 border-white">1</div>
+               </div>
+               <div className="flex flex-col gap-2 bg-white/20 p-2 rounded-lg backdrop-blur-md">
+                  <div className="w-6 h-6 bg-gray-200/80 rounded flex items-center justify-center text-[10px]">⌘</div>
+                  <div className="w-6 h-6 bg-pink-200/80 rounded flex items-center justify-center text-[10px]">A</div>
+               </div>
+            </div>
+          </div>
+          <Window project={activeProject} onClose={handleCloseWindow} onAddMedia={handleWindowAddMedia} />
+          <Terminal isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} projects={projects} onOpenProject={(p) => { setActiveProject(p); }} onSpecialCommand={handleTerminalSpecialCommand} />
+          <Dock onAppClick={handleDockIconClick} />
+        </div>
+      );
+    };
+
+    const root = createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
