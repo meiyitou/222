@@ -5,22 +5,25 @@ import { Project, DockItem } from './types';
 // CONFIGURATION GUIDE (使用说明)
 // ==========================================
 // 1. 编辑图片/视频 (Edit Media):
-//    找到下方的 PROJECTS 数组。
-//    修改 'url' 字段为你自己的链接。
 //    - 网络图片: 使用 https://... 链接
-//    - 本地图片: 将图片放入 public 文件夹，使用 '/image.jpg' 路径
+//    - 本地图片: 将图片放入 public 文件夹 (例如 public/image/1.jpg)，
+//      在这里使用的路径应该是 '/image/1.jpg' (不要带 public 前缀)
 //
 // 2. 编辑图库 (Edit Gallery):
 //    在 gallery: [] 数组中添加或删除项目。
-//    - 视频: { type: 'video', url: '...' }
-//    - 图片: { type: 'image', url: '...' }
 // ==========================================
 
 // 1. Desktop Wallpapers
 export const WALLPAPERS = [
   { 
+    id: 'local-custom', 
+    // Assuming your file is at: public/image/1.jpg
+    url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/68f40e24c24cdafmiwsxrf3810-1.webp', 
+    label: 'My Custom Wallpaper' 
+  },
+  { 
     id: 'starlight', 
-    url: 'https://file.notion.so/f/f/e0ad1085-2107-462b-810b-4510313d052f/14459271-432d-42c0-9b32-66857467711f/428335211_18106436530370668_4911592465972712229_n.jpg?table=block&id=1a21e392-6778-80d5-8b4e-d2603461643b&spaceId=e0ad1085-2107-462b-810b-4510313d052f&expirationTimestamp=1741075200000&signature=tJ-nU_Wn3_e2Xh_5T6_3q-3-0_c0', 
+    url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2000&q=80', 
     label: 'Starlight Blessing' 
   },
   { id: 'monterey', url: 'https://images.unsplash.com/photo-1621293954908-35155b013d07?auto=format&fit=crop&w=2560&q=80', label: 'Monterey' },
@@ -44,9 +47,9 @@ export const PROJECTS: Project[] = [
     previewImage: 'https://picsum.photos/id/20/800/500',
     videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
     gallery: [
-      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4' },
-      { type: 'image', url: 'https://picsum.photos/id/20/800/500' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/c013036b24feb24e4a405c38a9d5a5ca.jpg' }
       { type: 'image', url: 'https://picsum.photos/id/22/800/500' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/3cddd28ce8be807f8cea0a4552bfe77d.mp4' },
       { type: 'image', url: 'https://picsum.photos/id/24/800/500' },
       { type: 'image', url: 'https://picsum.photos/id/25/800/500' },
       { type: 'image', url: 'https://picsum.photos/id/26/600/800' },
@@ -114,8 +117,8 @@ export const PROJECTS: Project[] = [
     previewImage: 'https://picsum.photos/id/60/800/600',
     videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
     gallery: [
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/619941e1ea4a2760cd267dee639ed0d6.jpg' },
       { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4' },
-      { type: 'image', url: 'https://picsum.photos/id/60/800/600' },
       { type: 'image', url: 'https://picsum.photos/id/61/800/600' },
       { type: 'image', url: 'https://picsum.photos/id/62/800/600' },
       { type: 'image', url: 'https://picsum.photos/id/63/800/600' },
@@ -378,7 +381,7 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     position: { top: '0', left: '0' }
   },
   warning: {
-    id: 'warning',=
+    id: 'warning',
     title: 'System Notifications',
     category: 'System',
     description: 'No new alerts.\n\n• System is up to date\n• No security threats detected\n• Backup completed successfully at 03:00 AM',
