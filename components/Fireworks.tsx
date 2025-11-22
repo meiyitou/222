@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 
 interface FireworksProps {
@@ -27,11 +26,22 @@ const Fireworks: React.FC<FireworksProps> = ({ onComplete }) => {
     };
     window.addEventListener('resize', resizeHandler);
 
-    // Fireworks variables
-    const particles: Particle[] = [];
-    const rockets: Rocket[] = [];
-    const MAX_PARTICLES = 400;
-    const colors = ['#ff0043', '#14fc56', '#1e90ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
+    // ===========================
+    // Configuration
+    // ===========================
+    const PARTICLES_PER_EXPLOSION = 180;
+    const ROCKET_SPAWN_RATE = 0.04; 
+    const GRAVITY = 0.04;
+    const FRICTION = 0.96;
+    const DURATION = 8000; // Animation lasts 8 seconds
+
+    // Premium Color Palettes
+    const PALETTES = [
+      ['#FFD700', '#FDB931', '#FFFFFF'], // Luxurious Gold
+      ['#FF0055', '#00FFFF', '#FFFFFF'], // Cyberpunk Neon
+      ['#FF9966', '#FF5E62', '#FFFFFF'], // Sunset Glow
+      ['#E0C3FC', '#8EC5FC', '#FFFFFF'], // Holographic Ice
+    ];
 
     class Particle {
       x: number;
@@ -41,25 +51,29 @@ const Fireworks: React.FC<FireworksProps> = ({ onComplete }) => {
       alpha: number;
       color: string;
       decay: number;
+      size: number;
 
-      constructor(x: number, y: number, color: string) {
+      constructor(x: number, y: number, color: string, velocityMultiplier: number = 1) {
         this.x = x;
         this.y = y;
         const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 5 + 2;
+        // Random spread with some particles moving faster than others (Core vs Shell)
+        const speed = (Math.random() * 5 + 1) * velocityMultiplier; 
         this.vx = Math.cos(angle) * speed;
         this.vy = Math.sin(angle) * speed;
         this.alpha = 1;
         this.color = color;
-        this.decay = Math.random() * 0.015 + 0.01;
+        // Varying decay for natural fade out
+        this.decay = Math.random() * 0.015 + 0.005;
+        this.size = Math.random() * 2 + 0.5;
       }
 
       update() {
         this.x += this.vx;
         this.y += this.vy;
-        this.vy += 0.05; // Gravity
-        this.vx *= 0.95; // Friction
-        this.vy *= 0.95;
+        this.vx *= FRICTION; // Air resistance
+        this.vy *= FRICTION;
+        this.vy += GRAVITY;  // Gravity pulling down
         this.alpha -= this.decay;
       }
 
@@ -67,7 +81,7 @@ const Fireworks: React.FC<FireworksProps> = ({ onComplete }) => {
         ctx.globalAlpha = this.alpha;
         ctx.fillStyle = this.color;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
     }
@@ -76,78 +90,110 @@ const Fireworks: React.FC<FireworksProps> = ({ onComplete }) => {
       x: number;
       y: number;
       vy: number;
-      color: string;
+      vx: number;
+      color: string[];
       exploded: boolean;
+      trail: {x: number, y: number}[];
 
       constructor() {
-        this.x = Math.random() * width;
+        this.x = (Math.random() * 0.6 + 0.2) * width; // Spawn in middle 60% of screen
         this.y = height;
-        this.vy = -(Math.random() * 5 + 12); // Launch speed
-        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.vy = -(Math.random() * 6 + 12); // Launch velocity
+        this.vx = (Math.random() - 0.5) * 3; // Horizontal drift
+        this.color = PALETTES[Math.floor(Math.random() * PALETTES.length)];
         this.exploded = false;
+        this.trail = [];
       }
 
       update() {
+        this.x += this.vx;
         this.y += this.vy;
-        this.vy += 0.15; // Gravity pulling down rocket slightly
+        this.vy += GRAVITY;
         
-        // Explode when it reaches peak (velocity matches gravity or specific height)
-        if (this.vy >= -2) {
+        // Keep last 8 positions for trail
+        this.trail.push({x: this.x, y: this.y});
+        if (this.trail.length > 8) this.trail.shift();
+
+        // Explode when upward momentum is lost
+        if (this.vy >= -1.5) {
           this.explode();
         }
       }
 
       explode() {
         this.exploded = true;
-        // Create explosion particles
-        for (let i = 0; i < 80; i++) {
-          particles.push(new Particle(this.x, this.y, this.color));
-        }
-        // Flash effect
-        ctx!.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        
+        // 1. Flash Effect: Light up the whole screen momentarily
+        ctx!.globalCompositeOperation = 'lighter';
+        ctx!.fillStyle = 'rgba(255, 255, 255, 0.15)';
         ctx!.fillRect(0, 0, width, height);
+
+        // 2. Main Particles
+        for (let i = 0; i < PARTICLES_PER_EXPLOSION; i++) {
+          const color = this.color[Math.floor(Math.random() * this.color.length)];
+          particles.push(new Particle(this.x, this.y, color));
+        }
+        
+        // 3. Bright Core Particles (Faster, White)
+        for (let i = 0; i < 40; i++) {
+             particles.push(new Particle(this.x, this.y, '#FFFFFF', 1.5));
+        }
       }
 
       draw(ctx: CanvasRenderingContext2D) {
         if (this.exploded) return;
-        ctx.globalAlpha = 1;
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-        ctx.fill();
         
-        // Trail
+        // Draw Rocket Trail
+        ctx.globalAlpha = 1;
         ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(this.x, this.y + 10);
-        ctx.strokeStyle = this.color;
+        if (this.trail.length > 1) {
+            ctx.moveTo(this.trail[0].x, this.trail[0].y);
+            for (let p of this.trail) {
+                ctx.lineTo(p.x, p.y);
+            }
+        }
+        // Gradient Trail
+        const gradient = ctx.createLinearGradient(this.x, this.y, this.x - this.vx*10, this.y - this.vy*10);
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 2;
         ctx.stroke();
+
+        // Draw Head
+        ctx.fillStyle = '#FFF';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
+        ctx.fill();
       }
     }
 
     let animationFrameId: number;
     let startTime = Date.now();
-    const DURATION = 6000; // Run for 6 seconds
     let spawning = true;
 
+    const particles: Particle[] = [];
+    const rockets: Rocket[] = [];
+
     const loop = () => {
-      // Clear canvas with trail effect
+      // Clear canvas with trail effect (creates smooth motion blur)
       ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.15)'; // Adjust opacity for trail length
       ctx.fillRect(0, 0, width, height);
+      
+      // Use lighter composition for glowing effect
       ctx.globalCompositeOperation = 'lighter';
 
-      // Check duration
       if (Date.now() - startTime > DURATION) {
         spawning = false;
       }
 
-      // Spawn rockets
-      if (spawning && Math.random() < 0.05) {
+      // Randomly spawn rockets
+      if (spawning && Math.random() < ROCKET_SPAWN_RATE) {
         rockets.push(new Rocket());
       }
 
-      // Update rockets
+      // Update & Draw Rockets
       for (let i = rockets.length - 1; i >= 0; i--) {
         rockets[i].update();
         rockets[i].draw(ctx);
@@ -156,7 +202,7 @@ const Fireworks: React.FC<FireworksProps> = ({ onComplete }) => {
         }
       }
 
-      // Update particles
+      // Update & Draw Particles
       for (let i = particles.length - 1; i >= 0; i--) {
         particles[i].update();
         particles[i].draw(ctx);
@@ -165,7 +211,7 @@ const Fireworks: React.FC<FireworksProps> = ({ onComplete }) => {
         }
       }
 
-      // Check if done
+      // Cleanup check
       if (!spawning && rockets.length === 0 && particles.length === 0) {
         cancelAnimationFrame(animationFrameId);
         onComplete();

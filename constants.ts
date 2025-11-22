@@ -47,7 +47,7 @@ export const PROJECTS: Project[] = [
     previewImage: 'https://picsum.photos/id/20/800/500',
     videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
     gallery: [
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/c013036b24feb24e4a405c38a9d5a5ca.jpg' }
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/c013036b24feb24e4a405c38a9d5a5ca.jpg' },
       { type: 'image', url: 'https://picsum.photos/id/22/800/500' },
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/3cddd28ce8be807f8cea0a4552bfe77d.mp4' },
       { type: 'image', url: 'https://picsum.photos/id/24/800/500' },
@@ -438,14 +438,19 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     id: 'insta',
     title: 'Instagram',
     category: 'Social Media',
-    description: 'Latest posts from @bychudy.\n\n"Creating digital experiences that matter."\n\nFollow for more design updates and behind the scenes work.',
-    thumbnail: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=100&q=80',
+    description: 'Digital Creator\nCreating visual experiences & motion design.\nbased in Warsaw, Poland 🇵🇱\n\nContact: hello@bychudy.com',
+    thumbnail: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80',
     previewImage: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=1200&q=80',
     gallery: [
+        { type: 'image', url: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=800&q=80' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1580828343064-fde4fc206bc6?auto=format&fit=crop&w=800&q=80' },
         { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=1200&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1580828343064-fde4fc206bc6?auto=format&fit=crop&w=1200&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?auto=format&fit=crop&w=1200&q=80' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?auto=format&fit=crop&w=800&q=80' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=80' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80' },
+        { type: 'image', url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80' },
     ],
     position: { top: '0', left: '0' }
   },
