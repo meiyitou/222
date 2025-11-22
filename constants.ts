@@ -10,6 +10,15 @@ export const PROJECTS: Project[] = [
     thumbnail: 'https://picsum.photos/id/20/200/200',
     previewImage: 'https://picsum.photos/id/20/800/500',
     videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    gallery: [
+      { type: 'image', url: 'https://picsum.photos/id/20/800/500' },
+      { type: 'image', url: 'https://picsum.photos/id/22/800/500' },
+      { type: 'image', url: 'https://picsum.photos/id/24/800/500' },
+      { type: 'image', url: 'https://picsum.photos/id/25/800/500' },
+      { type: 'image', url: 'https://picsum.photos/id/26/600/800' },
+      { type: 'image', url: 'https://picsum.photos/id/27/600/800' },
+      { type: 'image', url: 'https://picsum.photos/id/28/600/800' }
+    ],
     position: { top: '10%', left: '5%' },
   },
   {
@@ -164,9 +173,10 @@ export const DOCK_ITEMS: DockItem[] = [
   { label: 'After Effects', iconType: 'ae' },
   { label: 'Photoshop', iconType: 'ps' },
   { label: 'Illustrator', iconType: 'ai' },
-  { label: 'Alerts', iconType: 'warning' },
+  { label: 'Terminal', iconType: 'terminal' },
   { label: 'Notes', iconType: 'notes' },
   { label: 'Photos', iconType: 'photos' },
+  { label: 'Netease Music', iconType: 'netease' },
   { label: 'Instagram', iconType: 'insta' },
   { label: 'Contact', iconType: 'mail' },
   { label: 'Trash', iconType: 'trash' },
