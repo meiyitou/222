@@ -15,7 +15,10 @@ const App: React.FC = () => {
   // State for projects
   const [projects] = useState<Project[]>(PROJECTS);
   const [dockApps] = useState<Record<string, Project>>(DOCK_APPS_CONTENT);
-  const [activeProject, setActiveProject] = useState<Project | null>(PROJECTS[0]);
+  
+  // FIXED: Set initial state to null so the desktop starts empty
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
+  
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isWallpaperPickerOpen, setIsWallpaperPickerOpen] = useState(false);
   const [wallpaper, setWallpaper] = useState<string>(DEFAULT_WALLPAPER);
@@ -24,7 +27,7 @@ const App: React.FC = () => {
   // Force update wallpaper when DEFAULT_WALLPAPER constant changes
   useEffect(() => {
     setWallpaper(DEFAULT_WALLPAPER);
-  }, []);
+  }, [DEFAULT_WALLPAPER]);
 
   // Determine active app name for TopBar
   const activeAppName = isTerminalOpen ? 'Terminal' : isWallpaperPickerOpen ? 'System Settings' : activeProject ? activeProject.title : 'Finder';
@@ -149,4 +152,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-    

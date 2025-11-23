@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Project } from '../types';
@@ -6,7 +5,6 @@ import { Project } from '../types';
 interface DesktopIconProps {
   project: Project;
   onClick: (project: Project) => void;
-  // Removed onUpdateMedia
 }
 
 const DesktopIcon: React.FC<DesktopIconProps> = ({ project, onClick }) => {
@@ -25,48 +23,79 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ project, onClick }) => {
   const displaySrc = getDisplayThumbnail();
 
   return (
-    <motion.div
-      drag
-      dragMomentum={false}
-      onDragStart={() => { isDragging.current = true; }}
-      onDragEnd={() => { 
-        // Small delay to ensure the click event doesn't fire immediately after dragging
-        setTimeout(() => isDragging.current = false, 50); 
-      }}
-      whileDrag={{ scale: 1.1, zIndex: 50, cursor: 'grabbing' }}
-      whileTap={{ scale: 0.95, cursor: 'grabbing' }}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3 }}
-      className="absolute flex flex-col items-center gap-1 group cursor-grab w-[100px] z-10 select-none hover:z-30 p-1 rounded-md"
-      style={{ top: project.position.top, left: project.position.left }}
-      onClick={(e) => {
-        if (!isDragging.current) {
-          onClick(project);
-        }
-      }}
-    >
-      {/* Icon Container */}
-      <div className="relative w-14 h-14 md:w-16 md:h-16 bg-gray-800 rounded-[4px] shadow-xl overflow-hidden ring-2 ring-transparent group-hover:ring-white/30 transition-all">
-        <img 
-          src={displaySrc} 
-          alt={project.title} 
-          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity pointer-events-none"
-        />
-        {/* Gloss effect */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
-      </div>
-
-      {/* Label - Mac Style Text */}
-      <span 
-        className="text-[11px] font-medium text-white text-center leading-[1.2] whitespace-pre-line drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] px-1.5 py-0.5 rounded-[4px] group-hover:bg-[#0058d0] group-hover:drop-shadow-none transition-colors max-w-full break-words"
-        style={{ textShadow: "0px 1px 2px rgba(0,0,0,0.5)" }}
+    <React.Fragment>
+      <motion.div
+        drag
+        dragMomentum={false}
+        onDragStart={() => { isDragging.current = true; }}
+        onDragEnd={() => { 
+          setTimeout(() => isDragging.current = false, 50); 
+        }}
+        initial="idle"
+        whileHover="hover"
+        whileTap="tap"
+        whileDrag="drag"
+        variants={{
+          idle: { zIndex: 10, scale: 1 },
+          hover: { zIndex: 50, scale: 1 }, // Scale handled by children for specificity
+          tap: { scale: 0.95 },
+          drag: { scale: 1.1, zIndex: 100, cursor: 'grabbing' }
+        }}
+        className="absolute flex flex-col items-center gap-2 group cursor-grab w-32 select-none"
+        style={{ top: project.position.top, left: project.position.left }}
+        onClick={(e) => {
+          if (!isDragging.current) {
+            onClick(project);
+          }
+        }}
       >
-        {project.title}
-      </span>
-    </motion.div>
+        {/* Image Container - Handles Scale & Glow */}
+        <motion.div 
+          className="relative flex items-center justify-center w-24 h-24 md:w-28 md:h-28"
+          variants={{
+            idle: { 
+              scale: 1, 
+              filter: "drop-shadow(0 8px 12px rgba(0,0,0,0.4))"
+            },
+            hover: { 
+              scale: 1.2, 
+              filter: "drop-shadow(0 0 15px rgba(255,255,255,0.4)) drop-shadow(0 20px 40px rgba(0,0,0,0.5))",
+              transition: { type: "spring", stiffness: 300, damping: 15 }
+            }
+          }}
+        >
+          <img 
+            src={displaySrc} 
+            alt={project.title} 
+            className="max-w-full max-h-full object-contain pointer-events-none select-none"
+            draggable={false}
+          />
+          {/* Optional subtle border overlay for better definition on dark backgrounds */}
+          <div className="absolute inset-0 rounded-sm ring-1 ring-white/10 pointer-events-none" />
+        </motion.div>
+
+        {/* Label - Premium Typography & Design */}
+        <motion.div 
+          className="flex flex-col items-center justify-center max-w-full px-1"
+          variants={{
+            hover: { y: 8, scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 20 } },
+            idle: { y: 0, scale: 1 }
+          }}
+        >
+            <span 
+                className="text-[12px] md:text-[13px] font-medium text-white text-center leading-tight tracking-wide px-2.5 py-1 rounded-[6px] transition-all duration-200 break-words line-clamp-2 group-hover:bg-[#0058d0]/90 group-hover:text-white backdrop-blur-[2px] group-hover:backdrop-blur-none"
+                style={{ 
+                  textShadow: "0 1px 3px rgba(0,0,0,0.9), 0 0 1px rgba(0,0,0,0.6)",
+                  fontSmooth: "antialiased",
+                  WebkitFontSmoothing: "antialiased"
+                }}
+            >
+                {project.title}
+            </span>
+        </motion.div>
+      </motion.div>
+    </React.Fragment>
   );
 };
 
 export default DesktopIcon;
-    

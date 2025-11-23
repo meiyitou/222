@@ -49,6 +49,23 @@ const DockIconGraphic: React.FC<{ type: string }> = ({ type }) => {
              </div>
         </div>
       );
+    case 'solar':
+      return (
+        <div className={`${baseClass} bg-gradient-to-b from-[#0f0c29] via-[#302b63] to-[#24243e] flex items-center justify-center overflow-hidden`}>
+           {/* Stars */}
+           <div className="absolute inset-0 opacity-50">
+              <div className="absolute top-2 left-2 w-[1px] h-[1px] bg-white shadow-[0_0_2px_white]" />
+              <div className="absolute bottom-3 right-4 w-[1px] h-[1px] bg-white shadow-[0_0_2px_white]" />
+              <div className="absolute top-4 right-2 w-[2px] h-[2px] bg-white shadow-[0_0_2px_white]" />
+           </div>
+           {/* Planet */}
+           <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#4facfe] to-[#00f2fe] shadow-[0_0_10px_rgba(0,242,254,0.6)] relative z-10">
+              <div className="absolute inset-0 rounded-full bg-black/20 mask-image-gradient" />
+           </div>
+           {/* Ring */}
+           <div className="absolute w-10 h-3 border-[2px] border-[#e0c3fc] rounded-[50%] rotate-[-20deg] opacity-80 shadow-[0_0_5px_rgba(224,195,252,0.5)] z-20" />
+        </div>
+      );
     case 'notes':
       return (
         <div className={`${baseClass} bg-white flex flex-col border-0`}>
@@ -152,7 +169,7 @@ const Dock: React.FC<DockProps> = ({ onAppClick }) => {
         className="flex items-end px-2 pb-2 pt-2 bg-white/10 md:bg-white/20 backdrop-blur-3xl border border-white/20 rounded-[20px] md:rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
       >
         {DOCK_ITEMS.map((item, index) => {
-          const showSeparatorAfter = index === 2 || index === 8;
+          const showSeparatorAfter = index === 3 || index === 9; // Adjusted for new item
           const isActive = activeIndices.includes(index);
 
           return (
@@ -160,9 +177,9 @@ const Dock: React.FC<DockProps> = ({ onAppClick }) => {
               <motion.div 
                 className="group relative flex flex-col items-center mx-1 md:mx-1.5 cursor-pointer"
                 onClick={() => onAppClick(item.iconType)}
-                whileHover={{ scale: 1.15, y: -10 }}
-                whileTap={{ scale: 0.85, filter: "brightness(0.8)" }}
-                transition={{ type: "spring", stiffness: 350, damping: 20 }}
+                whileHover={{ scale: 1.15, y: -15 }}
+                whileTap={{ scale: 0.85, y: 0, filter: "brightness(0.8)" }}
+                transition={{ type: "spring", stiffness: 400, damping: 12, mass: 0.8 }}
               >
                  {/* Tooltip */}
                  <div className="absolute -top-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-[#e8e8e8]/90 text-black/80 text-[12px] px-3 py-1 rounded-[6px] pointer-events-none backdrop-blur-md shadow-lg whitespace-nowrap font-medium border border-black/5 z-20 translate-y-2 group-hover:translate-y-0 transform">

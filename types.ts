@@ -19,5 +19,5 @@ export interface Project {
 
 export interface DockItem {
   label: string;
-  iconType: 'ae' | 'ps' | 'ai' | 'warning' | 'notes' | 'photos' | 'insta' | 'netease' | 'mail' | 'trash' | 'terminal';
+  iconType: 'ae' | 'ps' | 'ai' | 'warning' | 'notes' | 'photos' | 'insta' | 'netease' | 'mail' | 'trash' | 'terminal' | 'solar';
 }

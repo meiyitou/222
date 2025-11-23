@@ -325,6 +325,7 @@ export const DOCK_ITEMS: DockItem[] = [
   { label: 'Photoshop', iconType: 'ps' },
   { label: 'Illustrator', iconType: 'ai' },
   { label: 'Terminal', iconType: 'terminal' },
+  { label: 'Solar System', iconType: 'solar' },
   { label: 'Notes', iconType: 'notes' },
   { label: 'Photos', iconType: 'photos' },
   { label: 'Netease Music', iconType: 'netease' },
@@ -420,6 +421,15 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     ],
     position: { top: '0', left: '0' }
   },
+  solar: {
+    id: 'solar',
+    title: 'Solar System',
+    category: 'Science',
+    description: 'Real-time 3D orbital simulation of the Solar System.',
+    thumbnail: 'https://images.unsplash.com/photo-1614730341194-75c60740a5d3?auto=format&fit=crop&w=200&q=80',
+    previewImage: '',
+    position: { top: '0', left: '0' }
+  },
   netease: {
     id: 'netease',
     title: 'Netease Cloud Music',
@@ -428,9 +438,9 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     thumbnail: 'https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&w=100&q=80',
     previewImage: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80',
     gallery: [
-       { type: 'image', url: 'https://images.unsplash.com/photo-1514525253440-b393452e3383?auto=format&fit=crop&w=1200&q=80' }, // Party
-       { type: 'image', url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80' }, // Mic
-       { type: 'image', url: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&w=1200&q=80' }, // Surf
+       { type: 'image', url: 'https://images.unsplash.com/photo-1514525253440-b393452e3383?auto=format&fit=crop&w=1200&q=80' }, 
+       { type: 'image', url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80' }, 
+       { type: 'image', url: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&w=1200&q=80' }, 
     ],
     position: { top: '0', left: '0' }
   },
@@ -438,7 +448,7 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     id: 'insta',
     title: 'Instagram',
     category: 'Social Media',
-    description: 'Digital Creator\nCreating visual experiences & motion design.\nbased in Warsaw, Poland 🇵🇱\n\nContact: hello@bychudy.com',
+    description: 'Latest posts from @bychudy.\n\n"Creating digital experiences that matter."\n\nFollow for more design updates and behind the scenes work.',
     thumbnail: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80',
     previewImage: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=1200&q=80',
     gallery: [
