@@ -1,13 +1,13 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { Project, MediaItem } from '../types';
-import { X, Minus, Maximize2, Music, Edit2, Grid, Bookmark, User, Settings, Heart, MessageCircle, Play, Pause, SkipBack, SkipForward, Plus, UploadCloud, Volume2 } from 'lucide-react';
-import SolarSystem from './SolarSystem'; // Import the new component
+import { X, Minus, Maximize2, Music, Edit2, Grid, Bookmark, User, Settings, Heart, MessageCircle, Play, Pause, SkipBack, SkipForward, Plus, Volume2 } from 'lucide-react';
+import SolarSystem from './SolarSystem'; 
 
 interface WindowProps {
   project: Project | null;
   onClose: () => void;
-  onAddMedia?: (file: File) => void;
 }
 
 interface AudioTrack {
@@ -17,14 +17,12 @@ interface AudioTrack {
     cover?: string;
 }
 
-const Window: React.FC<WindowProps> = ({ project, onClose, onAddMedia }) => {
-  const [isDraggingFile, setIsDraggingFile] = useState(false);
+const Window: React.FC<WindowProps> = ({ project, onClose }) => {
   const dragControls = useDragControls();
   
   // Netease specific state
   const [neteaseId, setNeteaseId] = useState('3778678'); 
   const [isEditingId, setIsEditingId] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   
   // Local Music Player State
   const [tracks, setTracks] = useState<AudioTrack[]>([
@@ -85,39 +83,6 @@ const Window: React.FC<WindowProps> = ({ project, onClose, onAddMedia }) => {
       const sec = Math.floor(time % 60);
       return `${min}:${sec < 10 ? '0' + sec : sec}`;
   };
-
-  const handleUploadClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file && onAddMedia) {
-      onAddMedia(file);
-    }
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!isDraggingFile) setIsDraggingFile(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDraggingFile(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDraggingFile(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file && onAddMedia) {
-      onAddMedia(file);
-    }
-  };
   
   if (!project) return null;
 
@@ -143,56 +108,35 @@ const Window: React.FC<WindowProps> = ({ project, onClose, onAddMedia }) => {
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 20, x: "-50%" }}
-        animate={{ opacity: 1, scale: 1, y: 0, x: "-50%" }}
-        exit={{ opacity: 0, scale: 0.95, y: 20, x: "-50%" }}
+        initial={{ opacity: 0, scale: 0.95, y: "-40%", x: "-50%" }}
+        animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
+        exit={{ opacity: 0, scale: 0.95, y: "-40%", x: "-50%" }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         drag
-        dragListener={false} // Disable dragging from anywhere in the window
-        dragControls={dragControls} // Only drag when controls are started (via Header)
+        dragListener={false} 
+        dragControls={dragControls}
         dragMomentum={false}
         dragElastic={0.1}
-        // UPDATED: Centered, larger width (1200px), and fixed height (85vh)
-        className="fixed top-8 md:top-12 left-1/2 z-40 w-[95vw] md:w-[1200px] h-[85vh] bg-[#f5f5f5]/95 backdrop-blur-3xl rounded-xl shadow-[0_30px_60px_-12px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col"
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
+        // 900px width, 75vh height, Centered
+        className="fixed top-1/2 left-1/2 z-40 w-[90vw] md:w-[900px] h-[75vh] bg-[#f5f5f5]/95 backdrop-blur-3xl rounded-xl shadow-[0_30px_60px_-12px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col"
       >
-        {isDraggingFile && (
-          <div className="absolute inset-0 z-50 bg-blue-500/20 backdrop-blur-sm border-4 border-blue-500 border-dashed m-2 rounded-lg flex flex-col items-center justify-center pointer-events-none">
-             <UploadCloud className="w-16 h-16 text-blue-600 mb-2" />
-             <span className="text-blue-700 font-bold text-lg">Drop to add to gallery</span>
-          </div>
-        )}
-
         {/* Window Header */}
         <div 
-          className="h-10 bg-gradient-to-b from-[#e6e6e6] to-[#dcdcdc] border-b border-[#bfbfbf] flex items-center px-4 justify-between shrink-0 z-20 select-none cursor-grab active:cursor-grabbing"
+          className="h-10 bg-gradient-to-b from-[#e6e6e6] to-[#dcdcdc] border-b border-[#bfbfbf] flex items-center px-4 justify-between shrink-0 z-20 select-none cursor-grab active:cursor-grabbing touch-none"
           onPointerDown={(e) => {
             dragControls.start(e);
           }}
         >
           <div className="flex gap-2 group/traffic" onPointerDown={(e) => e.stopPropagation()}>
-            <button 
-              onClick={onClose}
-              className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e] flex items-center justify-center transition-all shadow-sm"
-            >
-              <X className="w-2 h-2 text-black/60 opacity-0 group-hover/traffic:opacity-100 transition-opacity" />
-            </button>
-            <button className="w-3 h-3 rounded-full bg-[#febc2e] border border-[#d8a126] flex items-center justify-center transition-all shadow-sm">
-              <Minus className="w-2 h-2 text-black/60 opacity-0 group-hover/traffic:opacity-100 transition-opacity" />
-            </button>
-            <button className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1ea832] flex items-center justify-center transition-all shadow-sm">
-              <Maximize2 className="w-2 h-2 text-black/60 opacity-0 group-hover/traffic:opacity-100 transition-opacity" />
-            </button>
+            <button onClick={onClose} className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e] flex items-center justify-center transition-all shadow-sm"><X className="w-2 h-2 text-black/60 opacity-0 group-hover/traffic:opacity-100 transition-opacity" /></button>
+            <button className="w-3 h-3 rounded-full bg-[#febc2e] border border-[#d8a126] flex items-center justify-center transition-all shadow-sm"><Minus className="w-2 h-2 text-black/60 opacity-0 group-hover/traffic:opacity-100 transition-opacity" /></button>
+            <button className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1ea832] flex items-center justify-center transition-all shadow-sm"><Maximize2 className="w-2 h-2 text-black/60 opacity-0 group-hover/traffic:opacity-100 transition-opacity" /></button>
           </div>
-
           <div className="flex items-center gap-1.5 opacity-70">
             <span className="text-[13px] font-semibold text-gray-700 tracking-tight shadow-white drop-shadow-[0_1px_0_rgba(255,255,255,0.5)]">
               {project.title.replace('\n', ' ')}
             </span>
           </div>
-
           <div className="w-10" /> 
         </div>
 
@@ -200,7 +144,6 @@ const Window: React.FC<WindowProps> = ({ project, onClose, onAddMedia }) => {
         {project.id === 'netease' ? (
           /* === NETEASE PLAYER MODE === */
           <div className="flex-1 bg-[#f3f3f3] flex flex-col items-center justify-center p-4 md:p-8">
-             {/* (Existing Netease Code...) */}
              <div className="w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-200">
                <div className="p-4 bg-[#dd001b] flex items-center justify-between text-white shadow-md z-10 relative">
                   <div className="flex items-center gap-3">
@@ -237,7 +180,6 @@ const Window: React.FC<WindowProps> = ({ project, onClose, onAddMedia }) => {
         ) : project.id === 'localmusic' ? (
            /* === LOCAL MUSIC PLAYER MODE === */
            <div className="flex-1 bg-white/50 backdrop-blur-xl flex overflow-hidden">
-              {/* (Existing Local Music Code...) */}
               <audio ref={audioRef} src={tracks[currentTrackIndex]?.url} onTimeUpdate={handleTimeUpdate} onEnded={nextTrack} />
               <div className="w-1/3 border-r border-gray-200/50 bg-gray-50/50 flex flex-col">
                  <div className="p-3 border-b border-gray-200/50 flex justify-between items-center">
@@ -275,7 +217,6 @@ const Window: React.FC<WindowProps> = ({ project, onClose, onAddMedia }) => {
         ) : project.id === 'insta' ? (
           /* === INSTAGRAM APP MODE === */
           <div className="flex-1 bg-white overflow-y-auto custom-scrollbar flex flex-col items-center">
-             {/* (Existing Insta Code...) */}
              <div className="w-full max-w-3xl py-8 px-4 md:px-8">
               <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-12 mb-12 border-b border-gray-200 pb-12">
                  <div className="relative shrink-0 cursor-pointer">
@@ -323,25 +264,20 @@ const Window: React.FC<WindowProps> = ({ project, onClose, onAddMedia }) => {
                 </div>
               </div>
 
-              {/* Grid Media List - Optimized Layout */}
+              {/* MASONRY LAYOUT (Waterfall) - Optimized for Portrait/Landscape */}
               <div className="p-6 md:px-8 pb-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <div className="columns-1 md:columns-2 gap-6 space-y-6">
                   {mediaList.map((item, idx) => {
-                    // Layout Pattern: 1 Full - 2 Split - 1 Full - 2 Split
-                    const isFullWidth = idx % 3 === 0;
-                    const colSpanClass = isFullWidth ? "md:col-span-2" : "md:col-span-1";
-                    const aspectClass = isFullWidth ? "aspect-video" : "aspect-[4/3]";
-
                     return (
                       <motion.div 
                         key={idx} 
-                        className={`relative ${colSpanClass} ${aspectClass} group z-0 hover:z-10`}
+                        className="break-inside-avoid mb-6"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                       >
                         <motion.div
-                          className="w-full h-full relative rounded-lg overflow-hidden bg-gray-200 shadow-sm border border-black/5"
+                          className="w-full relative rounded-lg overflow-hidden bg-gray-200 shadow-sm border border-black/5 group"
                           whileHover={{ 
                               y: -10,
                               scale: 1.02,
@@ -353,7 +289,7 @@ const Window: React.FC<WindowProps> = ({ project, onClose, onAddMedia }) => {
                                 <video 
                                   src={item.url}
                                   controls
-                                  className="w-full h-full object-cover"
+                                  className="w-full h-auto block" // h-auto allows natural aspect ratio
                                   preload="metadata"
                                 />
                             ) : (
@@ -361,8 +297,8 @@ const Window: React.FC<WindowProps> = ({ project, onClose, onAddMedia }) => {
                                   <motion.img 
                                     src={item.url} 
                                     alt={`Media ${idx + 1}`} 
-                                    className="w-full h-full object-cover"
-                                    whileHover={{ scale: 1.1 }}
+                                    className="w-full h-auto block" // h-auto for natural aspect ratio (Vertical/Horizontal)
+                                    whileHover={{ scale: 1.05 }}
                                     transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
                                   />
                                   <div className="absolute inset-0 pointer-events-none">
@@ -382,22 +318,7 @@ const Window: React.FC<WindowProps> = ({ project, onClose, onAddMedia }) => {
                     );
                   })}
                 </div>
-                <input 
-                  type="file" 
-                  ref={fileInputRef} 
-                  className="hidden" 
-                  onChange={handleFileChange}
-                  accept="image/*,video/*"
-                />
-                <motion.button 
-                  whileHover={{ scale: 1.01, backgroundColor: "#fff" }}
-                  whileTap={{ scale: 0.99 }}
-                  onClick={handleUploadClick}
-                  className="w-full mt-8 py-6 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center text-gray-400 hover:border-blue-400 hover:text-blue-500 transition-colors gap-2 bg-gray-50/50"
-                >
-                  <Plus className="w-6 h-6" />
-                  <span className="font-medium">Add more images or videos</span>
-                </motion.button>
+                {/* Upload functionality totally removed */}
               </div>
           </div>
         )}
