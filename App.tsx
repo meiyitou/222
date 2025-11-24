@@ -73,6 +73,39 @@ const App: React.FC = () => {
     handleOpenProject(project);
   };
 
+  const handleUpdateMedia = (id: string, file: File) => {
+    setProjects(prev => prev.map(p => {
+      if (p.id === id) {
+        const url = URL.createObjectURL(file);
+        if (file.type.startsWith('image/')) {
+          // Update thumbnail/preview and gallery if needed
+          let newGallery = p.gallery ? [...p.gallery] : [];
+          // If gallery exists and has images, replace the first image
+          const firstImageIdx = newGallery.findIndex(item => item.type === 'image');
+          if (firstImageIdx !== -1) {
+            newGallery[firstImageIdx] = { ...newGallery[firstImageIdx], url };
+          } else if (p.gallery) {
+            // If gallery exists but no images (only videos?), add image to start
+            newGallery.unshift({ type: 'image', url });
+          }
+
+          return {
+            ...p,
+            thumbnail: url,
+            previewImage: url,
+            gallery: p.gallery ? newGallery : undefined
+          };
+        } else if (file.type.startsWith('video/')) {
+          return {
+            ...p,
+            videoUrl: url
+          };
+        }
+      }
+      return p;
+    }));
+  };
+
   const handleDockIconClick = (appId: string) => {
     if (appId === 'terminal') {
       setIsTerminalOpen(true);
@@ -142,7 +175,8 @@ const App: React.FC = () => {
              <DesktopIcon 
                key={project.id} 
                project={project} 
-               onClick={handleIconClick} 
+               onClick={handleIconClick}
+               onUpdateMedia={handleUpdateMedia}
              />
            ))}
         </div>
