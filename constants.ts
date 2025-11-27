@@ -37,7 +37,16 @@ export const WALLPAPERS = [
 export const DEFAULT_WALLPAPER = WALLPAPERS[0].url;
 
 // 2. Desktop Projects (Icons scattered on desktop)
+// Visual Layout Strategy:
+// Left Column 1 (x=30px): Primary items
+// Left Column 2 (x=150px): Secondary items
+// Right Column 1 (x=30px from right): Recent/Media items
+// Right Column 2 (x=150px from right): Misc items
+// Vertical spacing: 130px
 export const PROJECTS: Project[] = [
+  // === LEFT SIDE ===
+  
+  // Col 1
   {
     id: 'stage-visuals',
     title: '壮壮',
@@ -56,8 +65,65 @@ export const PROJECTS: Project[] = [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/lv_0_20241210132530-middle-original-1.gif' },
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/8b7bf2e982b75d70219d0cdfab548cbd.mp4' }
     ],
-    position: { top: '10%', left: '5%' },
+    position: { top: '50px', left: '30px' },
   },
+  {
+    id: 'efemmera',
+    title: '晨阳',
+    category: '依旧跑车',
+    description: '只能说非常之没意头.',
+    thumbnail: 'https://picsum.photos/id/40/200/200',
+    previewImage: 'https://picsum.photos/id/40/800/600',
+    gallery: [
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_ve23ocve23ocve23.png' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/屏幕截图-2025-11-26-192712.png' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/64a09a19acc2ac2418caf837dd62d8d8.mp4' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/60bc32792bbc63b25128888a34750a2f.jpg' },
+    ],
+    position: { top: '180px', left: '30px' },
+  },
+  {
+    id: 'kajecik',
+    title: 'KAJECIK',
+    category: 'App Design',
+    description: 'A notebook application concept designed for creative professionals.',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/2cb6b10f9232a20e994670d2671dfad4.jpg',
+    previewImage: 'https://www.meiyitou.top/wp-content/uploads/2025/11/2cb6b10f9232a20e994670d2671dfad4.jpg',
+    gallery: [
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/8e45db5905def0779e676134f95d5967-1.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/a8b21fd3136a2cf6e8be0a765ef3dc9f.mp4' }
+    ],
+    position: { top: '310px', left: '30px' },
+  },
+  {
+    id: 'trasa-po-koncu',
+    title: '电脑',
+    category: '',
+    description: '.',
+    thumbnail: 'https://picsum.photos/id/110/200/200',
+    previewImage: 'https://picsum.photos/id/110/800/600',
+    gallery: [
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/IMG_20250602_173559-scaled.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/02b1a591b9c77ea5f31f9489c06d35b5.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/883daa0a783de42a4e6e0e502afec08d-1.mp4' },
+    ],
+    position: { top: '440px', left: '30px' },
+  },
+  {
+    id: 'solar-bialas',
+    title: '电影',
+    category: 'Branding',
+    description: 'Collaborative branding project.',
+    thumbnail: 'https://picsum.photos/id/120/200/200',
+    previewImage: 'https://picsum.photos/id/120/800/600',
+    gallery: [
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Dlh3ZFvFj4gcN3E41r2fHIv2R1M.avif' },
+      { type: 'video', url: 'https://meiyitou.top/wp-content/uploads/2025/01/1月1日_21.mp4' },
+    ],
+    position: { top: '570px', left: '30px' },
+  },
+
+  // Col 2
   {
     id: '壮壮与虎啸',
     title: '壮壮与虎啸',
@@ -70,38 +136,62 @@ export const PROJECTS: Project[] = [
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/cdacbdce188c02e0d28c3cff69671711.mp4' },
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/4e580a7b269d03346d8f3d6e81d61cb6.mp4' },
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/9081091fb97d21d75878834a62af64f3.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/ac5160aec1c174dfd9d4e6daa2f92723.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/fe8bed53dc43ae7474a1c11b55e0be41.mp4' },
     ],
-    position: { top: '5%', left: '40%' },
+    position: { top: '50px', left: '150px' },
   },
   {
-    id: 'efemmera',
-    title: '晨阳',
-    category: '依旧跑车',
-    description: '只能说非常之没意头.',
-    thumbnail: 'https://picsum.photos/id/40/200/200',
-    previewImage: 'https://picsum.photos/id/40/800/600',
+    id: 'interludium',
+    title: 'NET',
+    category: 'Album Art',
+    description: '数字.',
+    thumbnail: 'https://picsum.photos/id/100/200/200',
+    previewImage: 'https://picsum.photos/id/100/800/600',
     gallery: [
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/屏幕截图-2025-11-26-192645.png' },
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/屏幕截图-2025-11-26-192712.png' },
-      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/64a09a19acc2ac2418caf837dd62d8d8.mp4' },
-      { type: 'image', url: 'https://picsum.photos/id/42/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/43/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/44/800/600' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b9dc475c31900d56cfa79a35bd83ff5d.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b344529530e2fbec142daa199ef154e8.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/f443c10b5530085ba1fad1eb0cf08c8a.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/55fafbb8ee15567ef06090c52d7d0d8d.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/c73cbf4dbf4ff85e666c6171f7c1a3ff.jpg' },
     ],
-    position: { top: '12%', left: '50%' },
+    position: { top: '180px', left: '150px' },
   },
   {
-    id: 'kajecik',
-    title: 'KAJECIK',
-    category: 'App Design',
-    description: 'A notebook application concept designed for creative professionals.',
-    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/2cb6b10f9232a20e994670d2671dfad4.jpg',
-    previewImage: 'https://www.meiyitou.top/wp-content/uploads/2025/11/2cb6b10f9232a20e994670d2671dfad4.jpg',
+    id: 'chanel',
+    title: 'CHANEL',
+    category: 'Commercial',
+    description: 'Unofficial commercial concept for Chanel fragrance.',
+    thumbnail: 'https://picsum.photos/id/130/200/200',
+    previewImage: 'https://picsum.photos/id/130/800/600',
     gallery: [
-      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/8e45db5905def0779e676134f95d5967-1.mp4' },
+      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4' },
+      { type: 'image', url: 'https://picsum.photos/id/130/800/600' },
+      { type: 'image', url: 'https://picsum.photos/id/131/800/600' },
+      { type: 'image', url: 'https://picsum.photos/id/132/800/600' },
+      { type: 'image', url: 'https://picsum.photos/id/133/800/600' },
     ],
-    position: { top: '15%', left: '75%' },
+    position: { top: '310px', left: '150px' },
   },
+  {
+    id: 'newonce',
+    title: '世龙',
+    category: 'Media',
+    description: '依旧厕所抽一根，跳远点.',
+    thumbnail: 'https://picsum.photos/id/150/200/200',
+    previewImage: 'https://picsum.photos/id/150/800/600',
+    gallery: [
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/屏幕截图-2025-11-28-004301.png' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b38450341dced623cdd70b24a0640e05.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/unnamed.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/屏幕截图-2025-11-28-004245.png' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/aac91662e13509fc8cc2de164b6cbd96.mp4' },
+    ],
+    position: { top: '440px', left: '150px' },
+  },
+
+  // === RIGHT SIDE ===
+  // Col 1 (Outer)
   {
     id: 'dubhe',
     title: 'DUBHE',
@@ -119,37 +209,22 @@ export const PROJECTS: Project[] = [
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/f9165144c6cac18c47f7f36987a30639.mp4' },
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/425d4f874c964b742abc467cc77e85b7.mp4' },
     ],
-    position: { top: '30%', left: '58%' },
-  },
-  {
-    id: '香烟',
-    title: 'cigarette',
-    category: 'Campaign',
-    description: 'Marketing campaign visuals for a major polish fashion drop.',
-    thumbnail: 'https://picsum.photos/id/70/200/200',
-    previewImage: 'https://picsum.photos/id/70/800/600',
-    gallery: [
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/5aca5d58b6d90f815243a67ee788f2b6.jpg' },
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/8b2aad9b5ae3aae8f9a9af3d822ca990.jpg' },
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/1752377101365-740.jpg' },
-    ],
-    position: { top: '35%', left: '42%' },
+    position: { top: '50px', right: '30px', left: 'auto' },
   },
   {
     id: 'trasa-konca',
-    title: 'TRASA KOŃCA\nŚWIATA',
+    title: '北张庄',
     category: 'Concert Visuals',
-    description: 'Tour visuals for the End of the World Tour.',
+    description: '中国哪有黑社会.',
     thumbnail: 'https://picsum.photos/id/80/200/200',
     previewImage: 'https://picsum.photos/id/80/800/600',
     gallery: [
-      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4' },
-      { type: 'image', url: 'https://picsum.photos/id/80/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/81/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/82/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/83/800/600' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/f4613f0a371e297bb03ee54e4f3fd8ce.jpg' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/d31020282a51282465324959f67fb1fc.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/94a1ae6ea9cf3db9a38f0503bda7bc25-1.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/aac91662e13509fc8cc2de164b6cbd96.mp4' },
     ],
-    position: { top: '40%', left: '52%' },
+    position: { top: '180px', right: '30px', left: 'auto' },
   },
   {
     id: 'collage-animations',
@@ -165,116 +240,24 @@ export const PROJECTS: Project[] = [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/65bacaefe40d096a89c7a414db5d72ea.jpg' },
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/626ed882d0952dd7cff00510e94d7210.jpg' },
     ],
-    position: { top: '45%', left: '56%' },
-  },
-  {
-    id: 'interludium',
-    title: 'NET',
-    category: 'Album Art',
-    description: '数字.',
-    thumbnail: 'https://picsum.photos/id/100/200/200',
-    previewImage: 'https://picsum.photos/id/100/800/600',
-    gallery: [
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b9dc475c31900d56cfa79a35bd83ff5d.jpg' },
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b344529530e2fbec142daa199ef154e8.jpg' },
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/f443c10b5530085ba1fad1eb0cf08c8a.jpg' },
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/55fafbb8ee15567ef06090c52d7d0d8d.jpg' },
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/c73cbf4dbf4ff85e666c6171f7c1a3ff.jpg' },
-    ],
-    position: { top: '32%', left: '77%' },
-  },
-  {
-    id: 'trasa-po-koncu',
-    title: 'TRASA\nPO KOŃCU ŚWIATA',
-    category: 'Event Design',
-    description: 'Post-apocalyptic event theming and visual direction.',
-    thumbnail: 'https://picsum.photos/id/110/200/200',
-    previewImage: 'https://picsum.photos/id/110/800/600',
-    gallery: [
-      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4' },
-      { type: 'image', url: 'https://picsum.photos/id/110/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/111/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/112/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/113/800/600' },
-    ],
-    position: { top: '38%', left: '80%' },
-  },
-  {
-    id: 'solar-bialas',
-    title: '电影',
-    category: 'Branding',
-    description: 'Collaborative branding project.',
-    thumbnail: 'https://picsum.photos/id/120/200/200',
-    previewImage: 'https://picsum.photos/id/120/800/600',
-    gallery: [
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Dlh3ZFvFj4gcN3E41r2fHIv2R1M.avif' },
-      { type: 'video', url: 'https://meiyitou.top/wp-content/uploads/2025/01/1月1日_21.mp4' },
-    ],
-    position: { top: '50%', left: '70%' },
-  },
-  {
-    id: 'chanel',
-    title: 'CHANEL',
-    category: 'Commercial',
-    description: 'Unofficial commercial concept for Chanel fragrance.',
-    thumbnail: 'https://picsum.photos/id/130/200/200',
-    previewImage: 'https://picsum.photos/id/130/800/600',
-    gallery: [
-      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4' },
-      { type: 'image', url: 'https://picsum.photos/id/130/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/131/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/132/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/133/800/600' },
-    ],
-    position: { top: '55%', left: '79%' },
+    position: { top: '310px', right: '30px', left: 'auto' },
   },
   {
     id: 'sbm-ff24',
-    title: 'SBM FF24',
-    category: 'Festival',
-    description: 'Main stage visuals for SBM FF24.',
+    title: '虎啸',
+    category: '',
+    description: 'pubh里的天生少年.',
     thumbnail: 'https://picsum.photos/id/140/200/200',
     previewImage: 'https://picsum.photos/id/140/800/600',
     gallery: [
-      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4' },
-      { type: 'image', url: 'https://picsum.photos/id/140/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/141/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/142/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/143/800/600' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_6f64kc6f64kc6f64_2025-11-28_00-32-15.png' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/f322aa5fe6f7b7e1b30545c0fea94df7.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/dcc894a0725e8e3680cf5f36c99d41cd.jpg' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/c80e6a88c58addc1e649ea2d79705aaf.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/aa1d14bccda3a91a8172767a14e2bc5c.mp4' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/17699fd7ba25b4a349abd8c0fac39f2b.jpg' },
     ],
-    position: { top: '45%', left: '88%' },
-  },
-  {
-    id: 'newonce',
-    title: '世龙',
-    category: 'Media',
-    description: '点评不了.',
-    thumbnail: 'https://picsum.photos/id/150/200/200',
-    previewImage: 'https://picsum.photos/id/150/800/600',
-    gallery: [
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/unnamed.jpg' },
-      { type: 'image', url: 'https://picsum.photos/id/150/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/151/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/152/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/153/800/600' },
-    ],
-    position: { top: '65%', left: '62%' },
-  },
-  {
-    id: 'merch',
-    title: 'MERCH',
-    category: 'Fashion',
-    description: 'Merchandise design collection.',
-    thumbnail: 'https://picsum.photos/id/160/200/200',
-    previewImage: 'https://picsum.photos/id/160/800/600',
-    gallery: [
-      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
-      { type: 'image', url: 'https://picsum.photos/id/160/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/161/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/162/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/163/800/600' },
-    ],
-    position: { top: '64%', left: '52%' },
+    position: { top: '440px', right: '30px', left: 'auto' },
   },
   {
     id: 'fantasmagorie',
@@ -290,7 +273,39 @@ export const PROJECTS: Project[] = [
       { type: 'image', url: 'https://picsum.photos/id/172/800/600' },
       { type: 'image', url: 'https://picsum.photos/id/173/800/600' },
     ],
-    position: { top: '70%', left: '45%' },
+    position: { top: '570px', right: '30px', left: 'auto' },
+  },
+
+  // Col 2 (Inner Right)
+  {
+    id: '香烟',
+    title: 'cigarette',
+    category: 'Campaign',
+    description: 'no smoking.',
+    thumbnail: 'https://picsum.photos/id/70/200/200',
+    previewImage: 'https://picsum.photos/id/70/800/600',
+    gallery: [
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/5aca5d58b6d90f815243a67ee788f2b6.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/8b2aad9b5ae3aae8f9a9af3d822ca990.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/1752377101365-740.jpg' },
+    ],
+    position: { top: '50px', right: '150px', left: 'auto' },
+  },
+  {
+    id: 'merch',
+    title: '梦杰',
+    category: 'Fashion',
+    description: 'Merchandise design collection.',
+    thumbnail: 'https://picsum.photos/id/160/200/200',
+    previewImage: 'https://picsum.photos/id/160/800/600',
+    gallery: [
+      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
+      { type: 'image', url: 'https://picsum.photos/id/160/800/600' },
+      { type: 'image', url: 'https://picsum.photos/id/161/800/600' },
+      { type: 'image', url: 'https://picsum.photos/id/162/800/600' },
+      { type: 'image', url: 'https://picsum.photos/id/163/800/600' },
+    ],
+    position: { top: '180px', right: '150px', left: 'auto' },
   },
   {
     id: 'ryk-x-sexed',
@@ -306,11 +321,10 @@ export const PROJECTS: Project[] = [
       { type: 'image', url: 'https://picsum.photos/id/182/800/600' },
       { type: 'image', url: 'https://picsum.photos/id/183/800/600' },
     ],
-    position: { top: '78%', left: '72%' },
+    position: { top: '310px', right: '150px', left: 'auto' },
   },
 ];
 
-// 3. Dock Items (The bar at the bottom)
 export const DOCK_ITEMS: DockItem[] = [
   { label: 'After Effects', iconType: 'ae' },
   { label: 'Photoshop', iconType: 'ps' },
@@ -325,7 +339,6 @@ export const DOCK_ITEMS: DockItem[] = [
   { label: 'Trash', iconType: 'trash' },
 ];
 
-// 4. Dock App Contents (What happens when you click a Dock Icon)
 export const DOCK_APPS_CONTENT: Record<string, Project> = {
   ae: {
     id: 'ae',
@@ -412,15 +425,6 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     ],
     position: { top: '0', left: '0' }
   },
-  solar: {
-    id: 'solar',
-    title: 'Solar System',
-    category: 'Science',
-    description: 'Real-time 3D orbital simulation of the Solar System.',
-    thumbnail: 'https://images.unsplash.com/photo-1614730341194-75c60740a5d3?auto=format&fit=crop&w=200&q=80',
-    previewImage: '',
-    position: { top: '0', left: '0' }
-  },
   netease: {
     id: 'netease',
     title: 'Netease Cloud Music',
@@ -439,20 +443,9 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     id: 'insta',
     title: 'Instagram',
     category: 'Social Media',
-    description: 'Latest posts from @bychudy.\n\n"Creating digital experiences that matter."\n\nFollow for more design updates and behind the scenes work.',
-    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/f71815bc0583f350f5cc3abbeed3627e.jpg',
+    description: '.',
+    thumbnail: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80',
     previewImage: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=1200&q=80',
-    gallery: [
-        { type: 'image', url: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=800&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1580828343064-fde4fc206bc6?auto=format&fit=crop&w=800&q=80' },
-        { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?auto=format&fit=crop&w=800&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80' },
-    ],
     position: { top: '0', left: '0' }
   },
   mail: {

@@ -13,7 +13,7 @@ export interface Project {
   previewImage: string;
   videoUrl?: string;
   gallery?: MediaItem[]; // Support for multiple media items
-  position: { top: string; left: string }; // Percentage based position
+  position: { top: string; left: string; right?: string; bottom?: string }; // Percentage based position
   mobileOrder?: number;
 }
 

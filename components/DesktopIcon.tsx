@@ -74,7 +74,12 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ project, onClick, onUpdateMed
         transition={{ duration: 0.3 }}
         // Increased container width for better text wrapping
         className="absolute flex flex-col items-center gap-2 group cursor-grab w-28 md:w-32 z-10 select-none hover:z-30"
-        style={{ top: project.position.top, left: project.position.left }}
+        style={{ 
+          top: project.position.top, 
+          left: project.position.left,
+          right: project.position.right,
+          bottom: project.position.bottom 
+        }}
         onClick={(e) => {
           if (!isDragging.current) {
             onClick(project);
