@@ -18,7 +18,7 @@ export const WALLPAPERS = [
   { 
     id: 'local-custom', 
     // Assuming your file is at: public/image/1.jpg
-    url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_v5u4v7v5u4v7v5u4-scaled.png', 
+    url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_v5u4v7v5u4v7v5u4_2025-11-26_19-38-17-scaled.png', 
     label: 'My Custom Wallpaper' 
   },
   { 
@@ -75,15 +75,15 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'efemmera',
-    title: 'EFEMMERA',
-    category: 'Visual Identity',
-    description: 'Exploration of ephemeral visual concepts through digital media.',
+    title: '晨阳',
+    category: '依旧跑车',
+    description: '只能说非常之没意头.',
     thumbnail: 'https://picsum.photos/id/40/200/200',
     previewImage: 'https://picsum.photos/id/40/800/600',
     gallery: [
-      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' },
-      { type: 'image', url: 'https://picsum.photos/id/40/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/41/800/600' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/屏幕截图-2025-11-26-192645.png' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/屏幕截图-2025-11-26-192712.png' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/64a09a19acc2ac2418caf837dd62d8d8.mp4' },
       { type: 'image', url: 'https://picsum.photos/id/42/800/600' },
       { type: 'image', url: 'https://picsum.photos/id/43/800/600' },
       { type: 'image', url: 'https://picsum.photos/id/44/800/600' },
@@ -117,6 +117,7 @@ export const PROJECTS: Project[] = [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_jp4bmkjp4bmkjp4b_2025-11-25_01-04-00.png' },
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/68f40e24c24cdafmiwsxrf3810-1.webp' },
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/f9165144c6cac18c47f7f36987a30639.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/425d4f874c964b742abc467cc77e85b7.mp4' },
     ],
     position: { top: '30%', left: '58%' },
   },
