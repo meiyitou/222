@@ -57,7 +57,7 @@ export const PROJECTS: Project[] = [
     videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/d4678b038f84fc49d10eb6ee84ab1e55.jpg' },
-      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/5fb9c6c46332bc39ada289ca9f0077d9.mp4' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b0a34e377d31be7381f9424c02832605.jpg' },
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/3cddd28ce8be807f8cea0a4552bfe77d.mp4' },
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/lv_0_20250308154654.gif' },
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/c013036b24feb24e4a405c38a9d5a5ca.jpg' },
@@ -84,9 +84,9 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'kajecik',
-    title: 'KAJECIK',
-    category: 'App Design',
-    description: 'A notebook application concept designed for creative professionals.',
+    title: 'ABSTRACT',
+    category: '',
+    description: '.',
     thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/2cb6b10f9232a20e994670d2671dfad4.jpg',
     previewImage: 'https://www.meiyitou.top/wp-content/uploads/2025/11/2cb6b10f9232a20e994670d2671dfad4.jpg',
     gallery: [
@@ -104,7 +104,7 @@ export const PROJECTS: Project[] = [
     previewImage: 'https://picsum.photos/id/110/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/IMG_20250602_173559-scaled.jpg' },
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/02b1a591b9c77ea5f31f9489c06d35b5.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/02b1a591b9c77ea5f31f9489c06d35b5.mp4' },
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/883daa0a783de42a4e6e0e502afec08d-1.mp4' },
     ],
     position: { top: '440px', left: '30px' },
@@ -154,6 +154,7 @@ export const PROJECTS: Project[] = [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/f443c10b5530085ba1fad1eb0cf08c8a.jpg' },
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/55fafbb8ee15567ef06090c52d7d0d8d.jpg' },
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/c73cbf4dbf4ff85e666c6171f7c1a3ff.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/02fe09a30832964520c11a81178b6854.jpg' },
     ],
     position: { top: '180px', left: '150px' },
   },
@@ -214,7 +215,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'trasa-konca',
     title: '北张庄',
-    category: 'Concert Visuals',
+    category: '',
     description: '中国哪有黑社会.',
     thumbnail: 'https://picsum.photos/id/80/200/200',
     previewImage: 'https://picsum.photos/id/80/800/600',
@@ -223,6 +224,8 @@ export const PROJECTS: Project[] = [
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/d31020282a51282465324959f67fb1fc.mp4' },
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/94a1ae6ea9cf3db9a38f0503bda7bc25-1.mp4' },
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/aac91662e13509fc8cc2de164b6cbd96.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b7d59bce377652e9539affcc6dbd0cc5.mp4' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/fa9e4854e274c7ccad019a5d32efdd66.jpg' },
     ],
     position: { top: '180px', right: '30px', left: 'auto' },
   },
@@ -294,32 +297,32 @@ export const PROJECTS: Project[] = [
   {
     id: 'merch',
     title: '梦杰',
-    category: 'Fashion',
-    description: 'Merchandise design collection.',
+    category: '',
+    description: '.',
     thumbnail: 'https://picsum.photos/id/160/200/200',
     previewImage: 'https://picsum.photos/id/160/800/600',
     gallery: [
-      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
-      { type: 'image', url: 'https://picsum.photos/id/160/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/161/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/162/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/163/800/600' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/屏幕截图-2025-11-28-010041.png' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/2165fabd72107934aa47bc53612d516b.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/mmexport1764349798114.gif' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/mmexport1764349421350.gif' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/23fd0290afd38a41d7c889dd12460960.jpg' },
     ],
     position: { top: '180px', right: '150px', left: 'auto' },
   },
   {
     id: 'ryk-x-sexed',
-    title: 'RYK X SEXED',
-    category: 'Campaign',
-    description: 'Social awareness campaign graphics.',
+    title: '世澳',
+    category: '',
+    description: '.',
     thumbnail: 'https://picsum.photos/id/180/200/200',
     previewImage: 'https://picsum.photos/id/180/800/600',
     gallery: [
-      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4' },
       { type: 'image', url: 'https://picsum.photos/id/180/800/600' },
       { type: 'image', url: 'https://picsum.photos/id/181/800/600' },
       { type: 'image', url: 'https://picsum.photos/id/182/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/183/800/600' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/ea110978498b879e48e7c489a11c6534.jpg' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/ce2b4543eaee2cf8ce203b3c370a4c6c.mp4' },
     ],
     position: { top: '310px', right: '150px', left: 'auto' },
   },
@@ -402,10 +405,7 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     thumbnail: 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=100&q=80',
     previewImage: 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1200&q=80',
     gallery: [
-        { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1200&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=80' },
+        { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/下载-11.mp4' },
     ],
     position: { top: '0', left: '0' }
   },
@@ -417,9 +417,8 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     thumbnail: 'https://images.unsplash.com/photo-1533158326339-7f3cf2404354?auto=format&fit=crop&w=100&q=80',
     previewImage: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1200&q=80',
     gallery: [
-      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4' },
       { type: 'image', url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1200&q=80' },
-      { type: 'image', url: 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1200&q=80' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/8bd54bd3eed1ca605ff4b5858b416bbd-2.mp4' },
       { type: 'image', url: 'https://images.unsplash.com/photo-1500634245200-e5245c7574ef?auto=format&fit=crop&w=1200&q=80' },
       { type: 'image', url: 'https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?auto=format&fit=crop&w=1200&q=80' }
     ],
@@ -444,9 +443,15 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     title: 'Instagram',
     category: 'Social Media',
     description: '.',
-    thumbnail: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80',
-    previewImage: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=1200&q=80',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_jp4bmkjp4bmkjp4b_2025-11-25_01-04-00.png',
+    previewImage: 'https://www.meiyitou.top/wp-content/uploads/2025/11/unnamed-2_2025-11-28_01-14-16.jpg',
     position: { top: '0', left: '0' }
+        gallery: [
+       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/0e2c9e311c3fcffa875f4474e013c217-2.mp4' }, 
+       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/d65db5e41045928d9cfaccb4cd57b510-2.mp4' }, 
+       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/a90930666014d1424f3eda1806f42d80-2.mp4' }, 
+       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/下载-17.mp4' }, 
+    ],
   },
   mail: {
     id: 'mail',
@@ -455,6 +460,8 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     description: 'Inbox: 0 Unread Messages\n\nDraft: Project Inquiry\nTo: contact@studio.com\nSubject: Collaboration\n\nHello, I would like to discuss a potential project...',
     thumbnail: 'https://images.unsplash.com/photo-1557200130-967055729456?auto=format&fit=crop&w=100&q=80',
     previewImage: 'https://images.unsplash.com/photo-1557200130-967055729456?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+    ],
     position: { top: '0', left: '0' }
   },
   trash: {
