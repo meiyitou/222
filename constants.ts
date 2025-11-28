@@ -318,9 +318,7 @@ export const PROJECTS: Project[] = [
     thumbnail: 'https://picsum.photos/id/180/200/200',
     previewImage: 'https://picsum.photos/id/180/800/600',
     gallery: [
-      { type: 'image', url: 'https://picsum.photos/id/180/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/181/800/600' },
-      { type: 'image', url: 'https://picsum.photos/id/182/800/600' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_knuuqtknuuqtknuu_2025-11-29_02-08-43.png' },
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/ea110978498b879e48e7c489a11c6534.jpg' },
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/ce2b4543eaee2cf8ce203b3c370a4c6c.mp4' },
     ],
