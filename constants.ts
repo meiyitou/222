@@ -443,7 +443,6 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     description: '.',
     thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_jp4bmkjp4bmkjp4b_2025-11-25_01-04-00.png',
     previewImage: 'https://www.meiyitou.top/wp-content/uploads/2025/11/unnamed-2_2025-11-28_01-14-16.jpg',
-    position: { top: '0', left: '0' }
     gallery: [
        { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/0e2c9e311c3fcffa875f4474e013c217-2.mp4' }, 
        { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/d65db5e41045928d9cfaccb4cd57b510-2.mp4' }, 
