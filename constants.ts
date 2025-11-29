@@ -450,6 +450,7 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
        { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/a90930666014d1424f3eda1806f42d80-2.mp4' }, 
        { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/下载-17.mp4' }, 
     ],
+    position: { top: '0', left: '0' }
   },
   mail: {
     id: 'mail',
