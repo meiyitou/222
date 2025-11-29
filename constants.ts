@@ -168,7 +168,7 @@ export const PROJECTS: Project[] = [
     category: 'Album Art',
     description: '数字.',
     thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b9dc475c31900d56cfa79a35bd83ff5d.jpg',
-    previewImage: 'https://picsum.photos/id/100/800/600',
+    previewImage: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b9dc475c31900d56cfa79a35bd83ff5d.jpg',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b9dc475c31900d56cfa79a35bd83ff5d.jpg' },
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b344529530e2fbec142daa199ef154e8.jpg' },
@@ -184,7 +184,7 @@ export const PROJECTS: Project[] = [
     category: '',
     description: '.',
     thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/IMG_20250602_173559-scaled.jpg',
-    previewImage: 'https://picsum.photos/id/110/800/600',
+    previewImage: 'https://www.meiyitou.top/wp-content/uploads/2025/11/IMG_20250602_173559-scaled.jpg',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/IMG_20250602_173559-scaled.jpg' },
       { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/02b1a591b9c77ea5f31f9489c06d35b5.mp4' },
