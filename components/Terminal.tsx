@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
@@ -16,6 +15,8 @@ interface TerminalLine {
   type: 'input' | 'output';
   text: string;
 }
+
+const MotionDiv = motion.div as any;
 
 const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, projects, onOpenProject, onSpecialCommand }) => {
   const [lines, setLines] = useState<TerminalLine[]>([
@@ -133,7 +134,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, projects, onOpenPr
 
   return (
     <AnimatePresence>
-       <motion.div
+       <MotionDiv
         initial={{ opacity: 0, scale: 0.8, y: 100 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.8, y: 100 }}
@@ -145,7 +146,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, projects, onOpenPr
         {/* Title Bar */}
         <div 
           className="h-8 bg-[#2b2d31] border-b border-gray-700 flex items-center px-4 justify-between shrink-0 cursor-grab active:cursor-grabbing"
-          onPointerDown={(e) => {
+          onPointerDown={(e: any) => {
              // @ts-ignore 
              e.target.closest('.framer-motion-div')?.setPointerCapture(e.pointerId);
           }}
@@ -193,7 +194,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, projects, onOpenPr
           <div ref={endRef} />
         </div>
 
-      </motion.div>
+      </MotionDiv>
     </AnimatePresence>
   );
 };

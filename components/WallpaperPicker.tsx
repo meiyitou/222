@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { WALLPAPERS } from '../constants';
@@ -10,12 +9,14 @@ interface WallpaperPickerProps {
   currentWallpaper: string;
 }
 
+const MotionDiv = motion.div as any;
+
 const WallpaperPicker: React.FC<WallpaperPickerProps> = ({ isOpen, onClose, onSelect, currentWallpaper }) => {
   if (!isOpen) return null;
 
   return (
     <AnimatePresence>
-      <motion.div
+      <MotionDiv
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -55,7 +56,7 @@ const WallpaperPicker: React.FC<WallpaperPickerProps> = ({ isOpen, onClose, onSe
           </div>
 
         </div>
-      </motion.div>
+      </MotionDiv>
     </AnimatePresence>
   );
 };

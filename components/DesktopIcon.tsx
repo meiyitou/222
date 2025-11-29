@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Project } from '../types';
@@ -8,6 +7,8 @@ interface DesktopIconProps {
   onClick: (project: Project) => void;
   onUpdateMedia: (id: string, file: File) => void;
 }
+
+const MotionDiv = motion.div as any;
 
 const DesktopIcon: React.FC<DesktopIconProps> = ({ project, onClick, onUpdateMedia }) => {
   const isDragging = useRef(false);
@@ -60,7 +61,7 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ project, onClick, onUpdateMed
         accept="image/*,video/*"
         onChange={handleFileChange}
       />
-      <motion.div
+      <MotionDiv
         drag
         dragMomentum={false}
         onDragStart={() => { isDragging.current = true; }}
@@ -72,15 +73,14 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ project, onClick, onUpdateMed
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3 }}
-        // Increased container width for better text wrapping
-        className="absolute flex flex-col items-center gap-2 group cursor-grab w-28 md:w-32 z-10 select-none hover:z-30"
+        className="absolute flex flex-col items-center gap-1.5 group cursor-grab w-28 select-none hover:z-30"
         style={{ 
           top: project.position.top, 
           left: project.position.left,
           right: project.position.right,
           bottom: project.position.bottom 
         }}
-        onClick={(e) => {
+        onClick={(e: any) => {
           if (!isDragging.current) {
             onClick(project);
           }
@@ -91,34 +91,27 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ project, onClick, onUpdateMed
       >
         {/* Image Container - Frameless, Shadowed, Larger */}
         <div className="relative w-20 h-20 md:w-24 md:h-24 flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
-          {/* Using object-contain to show full image shape instead of a box */}
           <img 
             src={displaySrc} 
             alt={project.title} 
-            className="max-w-full max-h-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.4)] pointer-events-none select-none"
+            className="max-w-full max-h-full object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] pointer-events-none select-none"
             draggable={false}
           />
-          
-          {/* Edit overlay (only appears on hover) */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-             {/* Optional: Subtle edit hint, currently kept clean */}
-          </div>
         </div>
 
-        {/* Label - OS Style Typography */}
-        {/* Using a nested span to allow the background to wrap tightly around the text */}
+        {/* Label - Artistic Serif Typography */}
         <div className="flex flex-col items-center justify-center w-full px-1">
             <span 
-                className="text-[12px] md:text-[13px] font-medium text-white text-center leading-tight tracking-wide px-2 py-1 rounded-[5px] transition-colors duration-200 break-words line-clamp-2 group-hover:bg-[#0058d0]/90 group-hover:text-white"
+                className="text-[12px] md:text-[13px] font-serif italic text-white text-center leading-tight tracking-widest px-2 py-0.5 transition-colors duration-200 break-words line-clamp-2 group-hover:text-blue-200"
                 style={{ 
-                  // Heavy text shadow for readability on light/complex backgrounds
-                  textShadow: "0 1px 3px rgba(0,0,0,0.8), 0 0 1px rgba(0,0,0,0.5)" 
+                  textShadow: "0 2px 4px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.5)",
+                  textTransform: 'uppercase'
                 }}
             >
                 {project.title}
             </span>
         </div>
-      </motion.div>
+      </MotionDiv>
     </React.Fragment>
   );
 };
