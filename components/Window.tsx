@@ -405,7 +405,7 @@ const Window: React.FC<WindowProps> = ({ project, onClose, zIndex = 20, onFocus 
                <div className="flex-1 flex flex-col items-center md:items-start gap-4 w-full">
                   <div className="flex flex-col md:flex-row items-center gap-4 w-full"><h2 className="text-xl font-normal text-gray-800">DUBHE</h2></div>
                   <div className="flex items-center gap-8 text-base"><div className="flex gap-1"><span className="font-bold text-gray-900">{mediaList.length}</span> posts</div><div className="flex gap-1"><span className="font-bold text-gray-900">12.4k</span> followers</div><div className="flex gap-1"><span className="font-bold text-gray-900">432</span> following</div></div>
-                  <div className="text-sm text-gray-900 text-center md:text-left"><p className="font-semibold">没意头</p><p className="whitespace-pre-line">{project.description}</p><a href="#" className="text-[#00376b] font-semibold hover:underline mt-1 block">www.meiyitou.top</a></div>
+                  <div className="text-sm text-gray-900 text-center md:text-left"><p className="font-semibold">MYT</p><p className="whitespace-pre-line">{project.description}</p><a href="#" className="text-[#00376b] font-semibold hover:underline mt-1 block">www.meiyitou.top</a></div>
                </div>
             </div>
             <div className="grid grid-cols-3 gap-1 md:gap-7">
