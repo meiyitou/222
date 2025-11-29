@@ -32,7 +32,7 @@ export const PROJECTS: Project[] = [
     title: '壮壮',
     category: 'Various artists',
     description: "mc阿壮.神一样的男人.",
-    thumbnail: 'https://picsum.photos/id/20/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/d4678b038f84fc49d10eb6ee84ab1e55.jpg',
     previewImage: 'https://picsum.photos/id/20/800/500',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/d4678b038f84fc49d10eb6ee84ab1e55.jpg' },
@@ -51,7 +51,7 @@ export const PROJECTS: Project[] = [
     title: '晨阳',
     category: '依旧跑车',
     description: '只能说非常之没意头.',
-    thumbnail: 'https://picsum.photos/id/40/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_ve23ocve23ocve23.png',
     previewImage: 'https://picsum.photos/id/40/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_ve23ocve23ocve23.png' },
@@ -64,9 +64,9 @@ export const PROJECTS: Project[] = [
   {
     id: '壮壮与虎啸',
     title: '壮壮与虎啸',
-    category: 'Print Design',
-    description: 'Visual identity and vinyl packaging design for the Hotel Mafija project.',
-    thumbnail: 'https://picsum.photos/id/30/200/200',
+    category: '嘤嘤嘤',
+    description: '.',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/75ead455d274fde1033e4e95d1545f73.jpg',
     previewImage: 'https://picsum.photos/id/30/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/75ead455d274fde1033e4e95d1545f73.jpg' },
@@ -98,7 +98,7 @@ export const PROJECTS: Project[] = [
     title: 'DUBHE',
     category: '干就完了',
     description: '东隅已逝，桑榆非晚。.',
-    thumbnail: 'https://picsum.photos/id/60/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/619941e1ea4a2760cd267dee639ed0d6.jpg',
     previewImage: 'https://picsum.photos/id/60/800/600',
     videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
     gallery: [
@@ -116,7 +116,7 @@ export const PROJECTS: Project[] = [
     title: '虎啸',
     category: '',
     description: 'pubh里的天生少年.',
-    thumbnail: 'https://picsum.photos/id/140/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_6f64kc6f64kc6f64_2025-11-28_00-32-15.png',
     previewImage: 'https://picsum.photos/id/140/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_6f64kc6f64kc6f64_2025-11-28_00-32-15.png' },
@@ -135,7 +135,7 @@ export const PROJECTS: Project[] = [
     title: '世龙',
     category: 'Media',
     description: '依旧厕所抽一根，跳远点.',
-    thumbnail: 'https://picsum.photos/id/150/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/屏幕截图-2025-11-28-004301.png',
     previewImage: 'https://picsum.photos/id/150/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/屏幕截图-2025-11-28-004301.png' },
@@ -151,7 +151,7 @@ export const PROJECTS: Project[] = [
     title: 'cigarette',
     category: 'Campaign',
     description: 'no smoking.',
-    thumbnail: 'https://picsum.photos/id/70/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/5aca5d58b6d90f815243a67ee788f2b6.jpg',
     previewImage: 'https://picsum.photos/id/70/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/5aca5d58b6d90f815243a67ee788f2b6.jpg' },
@@ -167,7 +167,7 @@ export const PROJECTS: Project[] = [
     title: 'NET',
     category: 'Album Art',
     description: '数字.',
-    thumbnail: 'https://picsum.photos/id/100/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b9dc475c31900d56cfa79a35bd83ff5d.jpg',
     previewImage: 'https://picsum.photos/id/100/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/b9dc475c31900d56cfa79a35bd83ff5d.jpg' },
@@ -183,7 +183,7 @@ export const PROJECTS: Project[] = [
     title: '电脑',
     category: '',
     description: '.',
-    thumbnail: 'https://picsum.photos/id/110/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/IMG_20250602_173559-scaled.jpg',
     previewImage: 'https://picsum.photos/id/110/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/IMG_20250602_173559-scaled.jpg' },
@@ -197,7 +197,7 @@ export const PROJECTS: Project[] = [
     title: '电影',
     category: 'Branding',
     description: 'Collaborative branding project.',
-    thumbnail: 'https://picsum.photos/id/120/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Dlh3ZFvFj4gcN3E41r2fHIv2R1M.avif',
     previewImage: 'https://picsum.photos/id/120/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Dlh3ZFvFj4gcN3E41r2fHIv2R1M.avif' },
@@ -210,7 +210,7 @@ export const PROJECTS: Project[] = [
     title: '世奥',
     category: '',
     description: '.',
-    thumbnail: 'https://picsum.photos/id/130/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_knuuqtknuuqtknuu_2025-11-29_02-08-43.png',
     previewImage: 'https://picsum.photos/id/130/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_knuuqtknuuqtknuu_2025-11-29_02-08-43.png' },
@@ -228,7 +228,7 @@ export const PROJECTS: Project[] = [
     title: '臭的',
     category: '依然有事先下了',
     description: '.',
-    thumbnail: 'https://picsum.photos/id/180/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_aosajaosajaosaja_2025-11-30_01-32-50.png',
     previewImage: 'https://picsum.photos/id/180/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_aosajaosajaosaja_2025-11-30_01-32-50.png' },
@@ -241,7 +241,7 @@ export const PROJECTS: Project[] = [
     title: '梦杰',
     category: '',
     description: '.',
-    thumbnail: 'https://picsum.photos/id/160/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/屏幕截图-2025-11-28-010041.png',
     previewImage: 'https://picsum.photos/id/160/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/屏幕截图-2025-11-28-010041.png' },
@@ -253,17 +253,17 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'fantasmagorie',
-    title: 'FANTASMAGORIE',
-    category: 'Art',
-    description: 'Surrealist digital art series.',
-    thumbnail: 'https://picsum.photos/id/170/200/200',
+    title: '兴趣',
+    category: '',
+    description: '.',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/68f40e24c24cdafmiwsxrf3810-1.webp',
     previewImage: 'https://picsum.photos/id/170/800/600',
     gallery: [
-      { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' },
-      { type: 'image', url: 'https://picsum.photos/id/170/800/600' },
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/28945f224b672ae7b809cb0cc245e838.jpg' },
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_6b8a316b8a316b8a_2025-11-30_01-28-28-scaled.png' },
-      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/fa9e4854e274c7ccad019a5d32efdd66-1.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/68f40e24c24cdafmiwsxrf3810-1.webp' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/d65db5e41045928d9cfaccb4cd57b510-2.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/a90930666014d1424f3eda1806f42d80-2.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/0e2c9e311c3fcffa875f4474e013c217-2.mp4' },
+      { type: 'video', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/下载-17.mp4' },
     ],
     position: { top: '72%', left: 'auto', right: '24%' }, 
   },
@@ -272,7 +272,7 @@ export const PROJECTS: Project[] = [
     title: '北张庄',
     category: 'Concert Visuals',
     description: '中国哪有黑社会.',
-    thumbnail: 'https://picsum.photos/id/80/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/f4613f0a371e297bb03ee54e4f3fd8ce.jpg',
     previewImage: 'https://picsum.photos/id/80/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/f4613f0a371e297bb03ee54e4f3fd8ce.jpg' },
@@ -289,7 +289,7 @@ export const PROJECTS: Project[] = [
     title: '风景',
     category: 'Motion Design',
     description: 'A series of experimental animations.',
-    thumbnail: 'https://picsum.photos/id/90/200/200',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/54a1497897407076edcbf48bde3aea6c.jpg',
     previewImage: 'https://picsum.photos/id/90/800/600',
     gallery: [
       { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/54a1497897407076edcbf48bde3aea6c.jpg' },
@@ -404,15 +404,9 @@ export const DOCK_APPS_CONTENT: Record<string, Project> = {
     title: 'Instagram',
     category: 'Social Media',
     description: 'Social Feed.',
-    thumbnail: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_jp4bmkjp4bmkjp4b_2025-11-25_01-04-00.png',
     previewImage: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=1200&q=80',
     gallery: [
-        { type: 'image', url: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?auto=format&fit=crop&w=800&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80' },
-        { type: 'image', url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80' },
         // RESTORED VIDEO
         { type: 'video', url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4' },
     ],
