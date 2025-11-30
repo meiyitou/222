@@ -136,7 +136,7 @@ const Window: React.FC<WindowProps> = ({ project, onClose, zIndex = 20, onFocus,
                   <div className="text-sm text-gray-900 text-center md:text-left space-y-1">
                      <p className="font-semibold">ovo</p>
                      <p className="whitespace-pre-line leading-snug text-gray-600">{project.description}</p>
-                     <a href="#" className="text-[#00376b] font-semibold hover:underline block">meiyitou.com</a>
+                     <a href="#" className="text-[#00376b] font-semibold hover:underline block">meiyitou.top</a>
                   </div>
                </div>
             </div>

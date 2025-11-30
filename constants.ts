@@ -299,6 +299,21 @@ export const PROJECTS: Project[] = [
     ],
     position: { top: '36%', left: 'auto', right: '12%' }, 
   },
+   {
+    id: 'merch',
+    title: '松酱',
+    category: '',
+    description: '.',
+    thumbnail: 'https://www.meiyitou.top/wp-content/uploads/2025/11/04e111279b6baf4a3b9a5f0be6b7fe11-scaled.jpg',
+    previewImage: 'https://picsum.photos/id/160/800/600',
+    gallery: [
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/04e111279b6baf4a3b9a5f0be6b7fe11-scaled.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/bd3c3768c6af1a37dfe966728698ebd6.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/4aea36f218a1978dd340f7ee9d40bac2-scaled.jpg' },
+      { type: 'image', url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/d4b16513838e156eab6b0b61e2577c45-scaled.jpg' },
+    ],
+    position: { top: '30%', left: 'auto', right: '32%' }, 
+  },
 ];
 
 export const DOCK_ITEMS: DockItem[] = [
