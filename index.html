@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,6 +16,69 @@
       ::-webkit-scrollbar {
         width: 0px;
         background: transparent;
+      }
+      @media (max-width: 767px) {
+        .desktop-icons-viewport {
+          overflow-y: auto;
+          pointer-events: auto;
+          touch-action: pan-y;
+          padding-top: 44px;
+          padding-bottom: 100px;
+          scrollbar-width: none;
+        }
+        .desktop-icons {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          align-content: start;
+          gap: 14px 10px;
+          height: auto;
+          padding: 8px 16px 24px;
+        }
+        .desktop-icon {
+          position: relative !important;
+          top: auto !important;
+          left: auto !important;
+          right: auto !important;
+          bottom: auto !important;
+          width: 100%;
+          min-width: 0;
+          cursor: pointer;
+        }
+        .desktop-icon-media {
+          width: min(100%, 104px);
+          height: auto;
+          aspect-ratio: 1;
+          padding: 8px;
+          overflow: hidden;
+          border-radius: 16px;
+          background: rgba(255, 255, 255, 0.14);
+          border: 1px solid rgba(255, 255, 255, 0.22);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+          backdrop-filter: blur(12px);
+        }
+        .desktop-icon-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 10px;
+          filter: none;
+        }
+        .site-dock {
+          width: calc(100vw - 20px);
+          max-width: 560px;
+          bottom: max(8px, env(safe-area-inset-bottom));
+        }
+        .dock-track {
+          width: 100%;
+          overflow-x: auto;
+          scrollbar-width: none;
+          overscroll-behavior-x: contain;
+          touch-action: pan-x;
+        }
+        .dock-track::-webkit-scrollbar { display: none; }
+      }
+      @media (max-width: 380px) {
+        .desktop-icons { gap: 12px 8px; padding-inline: 10px; }
       }
     </style>
   <script type="importmap">
@@ -35,3 +98,4 @@
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>
+

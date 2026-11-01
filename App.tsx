@@ -9,6 +9,7 @@ import Terminal from './components/Terminal';
 import Fireworks from './components/Fireworks';
 import WallpaperPicker from './components/WallpaperPicker';
 import { TopBar } from './components/TopBar';
+import useDesktopPhysics from './components/useDesktopPhysics';
 import { Filter } from 'lucide-react';
 import { AnimatePresence } from 'framer-motion';
 
@@ -34,7 +35,32 @@ const App: React.FC = () => {
   const [isWallpaperPickerOpen, setIsWallpaperPickerOpen] = useState(false);
   const [wallpaper, setWallpaper] = useState<string>(DEFAULT_WALLPAPER);
   const [showFireworks, setShowFireworks] = useState(false);
+  const [gravityEnabled, setGravityEnabled] = useState(false);
+  const iconsViewportRef = useRef<HTMLDivElement>(null);
+  const desktopRef = useRef<HTMLDivElement>(null);
+  useDesktopPhysics(desktopRef, gravityEnabled);
+  const [canDragIcons, setCanDragIcons] = useState(() => window.matchMedia('(min-width: 768px)').matches);
   const wallpaperInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const reset = () => setGravityEnabled(false);
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setGravityEnabled(false);
+    };
+    window.addEventListener('resize', reset);
+    window.addEventListener('keydown', escape);
+    return () => {
+      window.removeEventListener('resize', reset);
+      window.removeEventListener('keydown', escape);
+    };
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 768px)');
+    const update = () => setCanDragIcons(media.matches);
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
 
   useEffect(() => {
     setWallpaper(DEFAULT_WALLPAPER);
@@ -57,6 +83,7 @@ const App: React.FC = () => {
   };
 
   const openProject = (project: Project) => {
+    setGravityEnabled(false);
     const existingInstance = windows.find(w => w.projectId === project.id);
 
     if (existingInstance) {
@@ -64,7 +91,7 @@ const App: React.FC = () => {
     } else {
       // Calculate cascade position (30px steps)
       const count = windows.length;
-      const offset = (count % 8) * 30; 
+      const offset = canDragIcons ? (count % 8) * 30 : 0;
 
       const newInstance: OpenWindowInstance = {
         id: `${project.id}-${Date.now()}`,
@@ -125,8 +152,8 @@ const App: React.FC = () => {
   const handleProjectMediaUpdate = (id: string, file: File) => {};
   
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-gray-900 font-sans select-none text-gray-800">
-      <TopBar activeApp={activeAppName} />
+    <div ref={desktopRef} className="relative w-screen h-screen overflow-hidden bg-gray-900 font-sans select-none text-gray-800">
+      <TopBar activeApp={activeAppName} gravityEnabled={gravityEnabled} onGravityToggle={() => setGravityEnabled(value => !value)} />
 
       {showFireworks && (
         <Fireworks onComplete={() => setShowFireworks(false)} />
@@ -154,12 +181,13 @@ const App: React.FC = () => {
       </div>
 
       {/* Icons */}
-      <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none pt-8">
-        <div className="w-full h-full relative scale-75 md:scale-100 origin-top-left pointer-events-auto">
-           {projects.map((project) => (
+      <div ref={iconsViewportRef} className="desktop-icons-viewport absolute inset-0 z-10 overflow-hidden pointer-events-none pt-8" style={gravityEnabled ? { overflow: 'hidden', touchAction: 'none', pointerEvents: 'auto' } : undefined}>
+        <div className="desktop-icons w-full h-full relative pointer-events-auto">
+           {projects.map((project, index) => (
              <DesktopIcon 
-               key={project.id} 
+               key={`${project.id}-${index}`}
                project={project} 
+               canDrag={canDragIcons && !gravityEnabled}
                onClick={handleIconClick} 
                onUpdateMedia={handleProjectMediaUpdate}
              />
@@ -176,6 +204,7 @@ const App: React.FC = () => {
             zIndex={win.zIndex}
             initialX={win.defaultX}
             initialY={win.defaultY}
+            canDrag={canDragIcons && !gravityEnabled}
             onClose={() => closeWindow(win.id)} 
             onFocus={() => focusWindow(win.id)}
           />
