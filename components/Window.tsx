@@ -3,6 +3,7 @@ import { motion, useDragControls, useMotionValue } from 'framer-motion';
 import { Project, MediaItem } from '../types';
 import { X, Minus, Maximize2, Music, Edit2, Grid, Bookmark, User, Settings, Heart, MessageCircle, Play, Pause, SkipBack, SkipForward, Plus, Volume2, Disc, Info } from 'lucide-react';
 import SolarSystem from './SolarSystem';
+import AIAppWindow from './AIAppWindow';
 
 interface WindowProps {
   project: Project | null;
@@ -11,6 +12,7 @@ interface WindowProps {
   onFocus?: () => void;
   initialX?: number;
   initialY?: number;
+  canDrag?: boolean;
 }
 
 interface AudioTrack {
@@ -59,7 +61,7 @@ const GalleryMedia: React.FC<{ item: MediaItem; index: number }> = ({ item, inde
   );
 };
 
-const Window: React.FC<WindowProps> = ({ project, onClose, zIndex = 20, onFocus, initialX = 0, initialY = 0 }) => {
+const Window: React.FC<WindowProps> = ({ project, onClose, zIndex = 20, onFocus, initialX = 0, initialY = 0, canDrag = true }) => {
   const dragControls = useDragControls();
   const [isDragging, setIsDragging] = useState(false);
   
@@ -99,6 +101,9 @@ const Window: React.FC<WindowProps> = ({ project, onClose, zIndex = 20, onFocus,
 
   // --- RENDER CONTENT BASED ON APP ID ---
   const renderContent = () => {
+    if (project.id === 'chatgpt' || project.id === 'gemini' || project.id === 'claude' || project.id === 'deepseek') {
+      return <AIAppWindow appId={project.id} />;
+    }
     
     // === 1. INSTAGRAM UI (Priority) ===
     if (project.id === 'insta') {
@@ -263,12 +268,13 @@ const Window: React.FC<WindowProps> = ({ project, onClose, zIndex = 20, onFocus,
 
   return (
     <MotionDiv
+      data-gravity-item="window"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ type: "spring", stiffness: 350, damping: 30 }}
       
-      drag
+      drag={canDrag}
       dragListener={false} 
       dragControls={dragControls}
       dragMomentum={false}
@@ -282,9 +288,8 @@ const Window: React.FC<WindowProps> = ({ project, onClose, zIndex = 20, onFocus,
         zIndex, 
         position: 'fixed', 
         top: '50%', 
-        left: '50%',
+        left: 'max(5vw, calc(50% - 450px))',
         marginTop: '-37.5vh', 
-        marginLeft: '-450px', 
         x, 
         y
       }}
@@ -299,7 +304,7 @@ const Window: React.FC<WindowProps> = ({ project, onClose, zIndex = 20, onFocus,
         onPointerDown={(e: any) => {
           e.preventDefault();
           e.stopPropagation();
-          dragControls.start(e);
+          if (canDrag) dragControls.start(e);
         }}
       >
         <div className="flex gap-2 group/traffic" onPointerDown={(e) => e.stopPropagation()}>

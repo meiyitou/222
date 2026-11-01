@@ -12,6 +12,14 @@ const DockIconGraphic: React.FC<{ type: string }> = ({ type }) => {
   const baseClass = "w-11 h-11 md:w-[46px] md:h-[46px] rounded-[11px] shadow-[0_4px_10px_rgba(0,0,0,0.28)] flex items-center justify-center text-white text-xl md:text-2xl font-sans font-bold relative overflow-hidden ring-1 ring-white/15 select-none pointer-events-none transition-all duration-200";
 
   switch (type) {
+    case 'chatgpt':
+      return <div className={`${baseClass} bg-[#74aa9c]`}><img src="/ai-icons/chatgpt.svg" alt="" className="h-full w-full object-cover" /></div>;
+    case 'gemini':
+      return <div className={`${baseClass} bg-gradient-to-br from-[#2b69df] via-[#7855d9] to-[#c354a9]`}><img src="/ai-icons/gemini.svg" alt="" className="h-7 w-7" /></div>;
+    case 'claude':
+      return <div className={`${baseClass} bg-[#c46f53]`}><img src="/ai-icons/claude.svg" alt="" className="h-7 w-7" /></div>;
+    case 'deepseek':
+      return <div className={`${baseClass} bg-gradient-to-br from-[#1558c9] to-[#063a8b]`}><img src="/ai-icons/deepseek.svg" alt="" className="h-7 w-7" /></div>;
     case 'ae':
       return (
         <div className={`${baseClass} bg-[#00005b] text-[#d6bbfb]`}>
@@ -145,7 +153,7 @@ const Dock: React.FC<DockProps> = ({ onAppClick }) => {
         className="dock-track flex items-center gap-0.5 px-1.5 py-1.5 bg-black/35 backdrop-blur-2xl border border-white/25 rounded-[17px] shadow-[0_14px_34px_rgba(0,0,0,0.28),inset_0_1px_0_rgba(255,255,255,0.18)]"
       >
         {DOCK_ITEMS.map((item, index) => {
-          const showSeparatorAfter = index === 3 || index === 5 || index === 8;
+          const showSeparatorAfter = index === 3 || index === 4 || index === 6 || index === 9;
 
           return (
             <React.Fragment key={index}>
@@ -177,4 +185,3 @@ const Dock: React.FC<DockProps> = ({ onAppClick }) => {
 };
 
 export default Dock;
-

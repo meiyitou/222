@@ -63,6 +63,8 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ project, canDrag, onClick, on
         onChange={handleFileChange}
       />
       <MotionDiv
+        data-desktop-icon={project.id}
+        data-gravity-item="icon"
         drag={canDrag}
         dragMomentum={false}
         onDragStart={() => { isDragging.current = true; }}
@@ -118,4 +120,3 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ project, canDrag, onClick, on
 };
 
 export default DesktopIcon;
-

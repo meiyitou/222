@@ -317,9 +317,10 @@ export const PROJECTS: Project[] = [
 ];
 
 export const DOCK_ITEMS: DockItem[] = [
-  { label: 'After Effects', iconType: 'ae' },
-  { label: 'Photoshop', iconType: 'ps' },
-  { label: 'Illustrator', iconType: 'ai' },
+  { label: 'ChatGPT', iconType: 'chatgpt' },
+  { label: 'Gemini', iconType: 'gemini' },
+  { label: 'Claude', iconType: 'claude' },
+  { label: 'DeepSeek', iconType: 'deepseek' },
   { label: 'Terminal', iconType: 'terminal' },
   // Removed Solar System
   { label: 'Notes', iconType: 'notes' },
@@ -331,6 +332,15 @@ export const DOCK_ITEMS: DockItem[] = [
 ];
 
 export const DOCK_APPS_CONTENT: Record<string, Project> = {
+  ...Object.fromEntries(['chatgpt', 'gemini', 'claude', 'deepseek'].map(id => [id, {
+    id,
+    title: id === 'chatgpt' ? 'ChatGPT' : id === 'gemini' ? 'Gemini' : id === 'claude' ? 'Claude' : 'DeepSeek',
+    category: 'AI Application',
+    description: 'Interactive interface preview',
+    thumbnail: '',
+    previewImage: '',
+    position: { top: '0', left: '0' },
+  }])),
   ae: {
     id: 'ae',
     title: 'Adobe After Effects',

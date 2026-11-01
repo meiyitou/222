@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { Wifi, Battery, Search, Command, Apple } from 'lucide-react';
+import GravitySwitch from './GravitySwitch';
 
-export const TopBar: React.FC<{ activeApp?: string }> = ({ activeApp = 'Finder' }) => {
+export const TopBar: React.FC<{ activeApp?: string; gravityEnabled: boolean; onGravityToggle: () => void }> = ({ activeApp = 'Finder', gravityEnabled, onGravityToggle }) => {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
@@ -45,6 +46,7 @@ export const TopBar: React.FC<{ activeApp?: string }> = ({ activeApp = 'Finder' 
 
       {/* Right Side: Status Icons & Clock */}
       <div className="flex items-center gap-3 md:gap-5">
+        <GravitySwitch enabled={gravityEnabled} onChange={onGravityToggle} />
         <div className="hidden md:flex items-center gap-4 opacity-90">
            <Battery className="w-4 h-4" />
            <Wifi className="w-4 h-4" />
@@ -54,7 +56,7 @@ export const TopBar: React.FC<{ activeApp?: string }> = ({ activeApp = 'Finder' 
            </div>
         </div>
         
-        <span className="cursor-default hover:bg-white/10 px-2 py-0.5 rounded transition-colors">
+        <span className="hidden sm:inline cursor-default hover:bg-white/10 px-2 py-0.5 rounded transition-colors">
           {formatTime(time)}
         </span>
       </div>
