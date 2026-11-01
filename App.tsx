@@ -34,7 +34,15 @@ const App: React.FC = () => {
   const [isWallpaperPickerOpen, setIsWallpaperPickerOpen] = useState(false);
   const [wallpaper, setWallpaper] = useState<string>(DEFAULT_WALLPAPER);
   const [showFireworks, setShowFireworks] = useState(false);
+  const [canDragIcons, setCanDragIcons] = useState(() => window.matchMedia('(min-width: 768px)').matches);
   const wallpaperInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 768px)');
+    const update = () => setCanDragIcons(media.matches);
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
 
   useEffect(() => {
     setWallpaper(DEFAULT_WALLPAPER);
@@ -154,12 +162,13 @@ const App: React.FC = () => {
       </div>
 
       {/* Icons */}
-      <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none pt-8">
-        <div className="w-full h-full relative scale-75 md:scale-100 origin-top-left pointer-events-auto">
+      <div className="desktop-icons-viewport absolute inset-0 z-10 overflow-hidden pointer-events-none pt-8">
+        <div className="desktop-icons w-full h-full relative pointer-events-auto">
            {projects.map((project) => (
              <DesktopIcon 
                key={project.id} 
                project={project} 
+               canDrag={canDragIcons}
                onClick={handleIconClick} 
                onUpdateMedia={handleProjectMediaUpdate}
              />
@@ -203,3 +212,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+
