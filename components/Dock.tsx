@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { DOCK_ITEMS } from '../constants';
-import { Mail, AlertTriangle, Music, Trash2 } from 'lucide-react';
+import { Mail, AlertTriangle, Instagram } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const MotionDiv = motion.div as any;
@@ -101,13 +101,8 @@ const DockIconGraphic: React.FC<{ type: string }> = ({ type }) => {
       );
     case 'insta':
       return (
-        <div className={`${baseClass} bg-white flex items-center justify-center relative overflow-hidden`}>
-           {/* Official Instagram Icon */}
-           <img 
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/132px-Instagram_logo_2016.svg.png" 
-             alt="Instagram" 
-             className="w-full h-full object-cover"
-           />
+        <div className={`${baseClass} bg-gradient-to-tr from-[#feda75] via-[#d62976] to-[#4f5bd5]`}>
+           <Instagram className="w-8 h-8 stroke-[2.2] drop-shadow-sm" aria-hidden="true" />
         </div>
       );
     case 'mail':
@@ -132,7 +127,7 @@ const DockIconGraphic: React.FC<{ type: string }> = ({ type }) => {
 };
 
 const Separator = () => (
-  <div className="w-[1px] h-10 bg-white/20 mx-2 rounded-full" />
+  <div className="w-[1px] h-10 shrink-0 bg-white/20 mx-2 rounded-full" />
 );
 
 interface DockProps {
@@ -143,12 +138,12 @@ const Dock: React.FC<DockProps> = ({ onAppClick }) => {
   const activeIndices = [0, 1, 2, 6, 7, 8];
 
   return (
-    <div className="fixed bottom-2 left-1/2 -translate-x-1/2 z-50 w-auto">
+    <div className="site-dock fixed bottom-2 left-1/2 -translate-x-1/2 z-50 w-auto">
       <MotionDiv 
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 100, damping: 15, delay: 0.5 }}
-        className="flex items-end px-2 pb-2 pt-2 bg-white/10 md:bg-white/20 backdrop-blur-3xl border border-white/20 rounded-[20px] md:rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+        className="dock-track flex items-end px-2 pb-2 pt-2 bg-white/10 md:bg-white/20 backdrop-blur-3xl border border-white/20 rounded-[20px] md:rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
       >
         {DOCK_ITEMS.map((item, index) => {
           const showSeparatorAfter = index === 3 || index === 8; // Adjusted for 10 items
@@ -157,7 +152,7 @@ const Dock: React.FC<DockProps> = ({ onAppClick }) => {
           return (
             <React.Fragment key={index}>
               <MotionDiv 
-                className="group relative flex flex-col items-center mx-1 md:mx-1.5 cursor-pointer"
+                className="group relative flex shrink-0 flex-col items-center mx-1 md:mx-1.5 cursor-pointer"
                 onClick={() => onAppClick(item.iconType)}
                 whileHover={{ scale: 1.15, y: -15 }}
                 whileTap={{ scale: 0.85, y: 0, filter: "brightness(0.8)" }}
@@ -183,3 +178,4 @@ const Dock: React.FC<DockProps> = ({ onAppClick }) => {
 };
 
 export default Dock;
+
