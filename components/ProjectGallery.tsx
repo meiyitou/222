@@ -35,19 +35,23 @@ const ProjectGallery: React.FC<{ project: Project; media: MediaItem[] }> = ({ pr
     <header className="project-gallery-info">
       <img src={project.thumbnail} alt="" className="project-gallery-cover" />
       <div className="project-gallery-summary">
+        <div className="gallery-eyebrow">VISUAL JOURNAL <span>/ 影像手记</span></div>
         <div className="project-gallery-heading"><h1>{project.title}</h1><span>{project.category}</span></div>
         {project.description && <p>{project.description}</p>}
       </div>
+      <span className="gallery-count">{String(media.length).padStart(2, '0')}<small>MOMENTS</small></span>
     </header>
     <div className="project-gallery-content">
       {rows.map(row => <div key={row.join('-')} className={`project-gallery-row ${row.length === 2 ? 'project-gallery-pair' : ''}`}>
-        {row.map(index => <div key={`${index}-${media[index].url}`} className="project-gallery-media" style={{ flexGrow: row.length === 1 ? 1 : (ratios[index] ?? 1) * 100 }}>
+        {row.map(index => <figure key={`${index}-${media[index].url}`} className="project-gallery-media" style={{ flexGrow: row.length === 1 ? 1 : (ratios[index] ?? 1) * 100 }}>
           {media[index].type === 'video'
             ? <video src={media[index].url} controls playsInline preload="metadata" className="project-gallery-video" aria-label={`${project.title} · 视频 ${index + 1}`} />
             : <GalleryImage item={media[index]} index={index} title={project.title} onRatio={saveRatio} />}
-        </div>)}
+          <figcaption className="gallery-caption"><span>{String(index + 1).padStart(2, '0')} <span className="gallery-caption-total">/ {String(media.length).padStart(2, '0')}</span></span><span>{media[index].type === 'video' ? '动态影像 · MOTION' : '静止画面 · STILL'}</span></figcaption>
+        </figure>)}
       </div>)}
     </div>
+    <footer className="gallery-signoff"><span className="gallery-signoff-line" aria-hidden="true" /><p>一些片刻，值得留住。</p><small>MOMENTS WORTH KEEPING</small></footer>
   </section>;
 };
 
