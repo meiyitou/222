@@ -17,6 +17,42 @@
         width: 0px;
         background: transparent;
       }
+      .site-dock { max-width: calc(100vw - 24px); }
+      .dock-glass {
+        position: relative;
+        border-radius: 26px;
+        border: 1px solid rgba(255,255,255,.55);
+        background: linear-gradient(155deg, rgba(255,255,255,.28), rgba(255,255,255,.12) 48%, rgba(225,232,240,.22));
+        -webkit-backdrop-filter: blur(24px) saturate(185%) brightness(1.08);
+        backdrop-filter: blur(24px) saturate(185%) brightness(1.08);
+        box-shadow: 0 12px 32px -10px rgba(15,23,42,.35), 0 2px 8px rgba(0,0,0,.09), inset 0 1px 1px rgba(255,255,255,.8), inset 0 -1px 1px rgba(255,255,255,.3), inset 1px 0 1px rgba(255,255,255,.35);
+      }
+      .dock-glass::before, .dock-glass::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+      }
+      .dock-glass::before {
+        inset: 1px;
+        border: 1px solid rgba(255,255,255,.18);
+        box-shadow: inset 0 0 8px rgba(255,255,255,.14);
+      }
+      .dock-glass::after {
+        background: radial-gradient(ellipse 180px 65px at var(--dock-light-x, 50%) 0%, rgba(255,255,255,.48), transparent 78%);
+        opacity: .6;
+        transition: opacity 200ms ease;
+      }
+      .dock-glass:hover::after { opacity: 1; }
+      .dock-track { position: relative; z-index: 1; border-radius: inherit; }
+      .dock-brand-slot { position: relative; width: 44px; height: 44px; pointer-events: none; }
+      .dock-brand-image { position: absolute; width: 120%; height: 120%; max-width: none; left: -10%; top: -10%; object-fit: contain; filter: drop-shadow(0 3px 3px rgba(0,0,0,.12)); }
+      .dock-separator { width: 1px; height: 32px; flex-shrink: 0; margin: 0 7px; border-radius: 1px; background: rgba(25,35,50,.18); box-shadow: 1px 0 rgba(255,255,255,.45); }
+      @media (min-width: 768px) { .dock-brand-slot { width: 46px; height: 46px; } }
+      @supports not (backdrop-filter: blur(1px)) { .dock-glass { background: rgba(231,235,240,.94); } }
+      @media (prefers-reduced-transparency: reduce) { .dock-glass { background: #e7ebf0; -webkit-backdrop-filter: none; backdrop-filter: none; } }
+      @media (prefers-reduced-motion: reduce) { .dock-glass::after { transition: none; } }
       @media (max-width: 767px) {
         .desktop-icons-viewport {
           overflow-y: auto;
@@ -98,4 +134,3 @@
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>
-

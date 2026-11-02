@@ -37,13 +37,12 @@ const themes: Record<AIAppId, {
 
 const AppMark: React.FC<{ appId: AIAppId; accent: string; size?: 'small' | 'large' }> = ({ appId, accent, size = 'small' }) => (
   <span
-    className={`flex shrink-0 items-center justify-center overflow-hidden rounded-lg ${size === 'large' ? 'h-14 w-14 rounded-2xl shadow-lg' : 'h-8 w-8'}`}
-    style={{ background: accent }}
+    className={`flex shrink-0 items-center justify-center ${size === 'large' ? 'h-14 w-14' : 'h-8 w-8'}`}
   >
     <img
-      src={`/ai-icons/${appId}.svg`}
+      src={`/dock-icons/${appId}.png`}
       alt=""
-      className={appId === 'chatgpt' ? 'h-full w-full object-cover' : size === 'large' ? 'h-9 w-9' : 'h-5 w-5'}
+      className="h-[120%] w-[120%] max-w-none object-contain"
     />
   </span>
 );

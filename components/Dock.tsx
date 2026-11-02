@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { DOCK_ITEMS } from '../constants';
 import { Mail, AlertTriangle, Instagram } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -11,15 +11,11 @@ const MotionButton = motion.button as any;
 const DockIconGraphic: React.FC<{ type: string }> = ({ type }) => {
   const baseClass = "w-11 h-11 md:w-[46px] md:h-[46px] rounded-[11px] shadow-[0_4px_10px_rgba(0,0,0,0.28)] flex items-center justify-center text-white text-xl md:text-2xl font-sans font-bold relative overflow-hidden ring-1 ring-white/15 select-none pointer-events-none transition-all duration-200";
 
+  if (['chatgpt', 'gemini', 'claude', 'deepseek'].includes(type)) {
+    return <div className="dock-brand-slot"><img src={`/dock-icons/${type}.png`} alt="" draggable={false} className="dock-brand-image" /></div>;
+  }
+
   switch (type) {
-    case 'chatgpt':
-      return <div className={`${baseClass} bg-[#74aa9c]`}><img src="/ai-icons/chatgpt.svg" alt="" className="h-full w-full object-cover" /></div>;
-    case 'gemini':
-      return <div className={`${baseClass} bg-gradient-to-br from-[#2b69df] via-[#7855d9] to-[#c354a9]`}><img src="/ai-icons/gemini.svg" alt="" className="h-7 w-7" /></div>;
-    case 'claude':
-      return <div className={`${baseClass} bg-[#c46f53]`}><img src="/ai-icons/claude.svg" alt="" className="h-7 w-7" /></div>;
-    case 'deepseek':
-      return <div className={`${baseClass} bg-gradient-to-br from-[#1558c9] to-[#063a8b]`}><img src="/ai-icons/deepseek.svg" alt="" className="h-7 w-7" /></div>;
     case 'ae':
       return (
         <div className={`${baseClass} bg-[#00005b] text-[#d6bbfb]`}>
@@ -136,7 +132,7 @@ const DockIconGraphic: React.FC<{ type: string }> = ({ type }) => {
 };
 
 const Separator = () => (
-  <div className="w-px h-9 shrink-0 bg-white/35 mx-1.5 md:mx-2 rounded-full" />
+  <div className="dock-separator" aria-hidden="true" />
 );
 
 interface DockProps {
@@ -144,25 +140,32 @@ interface DockProps {
 }
 
 const Dock: React.FC<DockProps> = ({ onAppClick }) => {
+  const dockRef = useRef<HTMLDivElement>(null);
+  const updateLight = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'mouse') return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    dockRef.current?.style.setProperty('--dock-light-x', `${((event.clientX - bounds.left) / bounds.width) * 100}%`);
+  };
   return (
-    <div className="site-dock fixed bottom-3 left-1/2 -translate-x-1/2 z-50">
+    <div ref={dockRef} onPointerMove={updateLight} onPointerLeave={() => dockRef.current?.style.removeProperty('--dock-light-x')} className="site-dock fixed bottom-3 left-1/2 -translate-x-1/2 z-50">
       <MotionDiv 
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 150, damping: 20, delay: 0.25 }}
-        className="dock-track flex items-center gap-0.5 px-1.5 py-1.5 bg-black/35 backdrop-blur-2xl border border-white/25 rounded-[17px] shadow-[0_14px_34px_rgba(0,0,0,0.28),inset_0_1px_0_rgba(255,255,255,0.18)]"
+        className="dock-glass"
       >
+        <div className="dock-track flex items-center gap-1 px-2.5 py-2.5">
         {DOCK_ITEMS.map((item, index) => {
-          const showSeparatorAfter = index === 3 || index === 4 || index === 6 || index === 9;
+          const showSeparatorAfter = index === 3 || index === 9;
 
           return (
             <React.Fragment key={index}>
               <MotionButton
                 type="button"
                 aria-label={item.label}
-                className="group relative flex shrink-0 items-center justify-center mx-0.5 border-0 bg-transparent p-0 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 rounded-xl"
+                className="dock-app group relative flex shrink-0 items-center justify-center mx-0.5 border-0 bg-transparent p-0 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-4 rounded-xl"
                 onClick={() => onAppClick(item.iconType)}
-                whileHover={{ scale: 1.12, y: -9 }}
+                whileHover={{ scale: 1.16, y: -10 }}
                 whileTap={{ scale: 0.92, y: 0 }}
                 transition={{ type: "spring", stiffness: 380, damping: 18, mass: 0.7 }}
               >
@@ -179,6 +182,7 @@ const Dock: React.FC<DockProps> = ({ onAppClick }) => {
             </React.Fragment>
           );
         })}
+        </div>
       </MotionDiv>
     </div>
   );
