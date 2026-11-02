@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useDragControls, useMotionValue } from 'framer-motion';
-import { Project, MediaItem } from '../types';
+import { Project } from '../types';
 import { X, Minus, Maximize2, Music, Edit2, Grid, Bookmark, User, Settings, Heart, MessageCircle, Play, Pause, SkipBack, SkipForward, Plus, Volume2, Disc, Info } from 'lucide-react';
 import SolarSystem from './SolarSystem';
 import AIAppWindow from './AIAppWindow';
+import ProjectGallery from './ProjectGallery';
 
 interface WindowProps {
   project: Project | null;
@@ -23,43 +24,6 @@ interface AudioTrack {
 }
 
 const MotionDiv = motion.div as any;
-
-// --- GALLERY ITEM COMPONENT ---
-const GalleryMedia: React.FC<{ item: MediaItem; index: number }> = ({ item, index }) => {
-  const [isLandscape, setIsLandscape] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const isVideo = item.type === 'video';
-  const colSpanClass = isVideo || isLandscape ? 'col-span-2' : 'col-span-1';
-
-  return (
-    <MotionDiv 
-      className={`relative group z-0 break-inside-avoid mb-4 ${colSpanClass}`}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05 }}
-    >
-      <div className="w-full h-full relative rounded-lg overflow-hidden bg-gray-200 shadow-sm border border-black/5 group-hover:shadow-xl transition-all duration-300">
-          {isVideo ? (
-              <video src={item.url} controls className="w-full h-auto block" preload="metadata" />
-          ) : (
-              <>
-                <img 
-                  src={item.url} 
-                  alt={`Media ${index}`} 
-                  className={`w-full h-auto block transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-                  onLoad={(e) => {
-                    const img = e.currentTarget;
-                    if (img.naturalWidth > img.naturalHeight * 1.1) setIsLandscape(true);
-                    setLoaded(true);
-                  }}
-                />
-                {!loaded && <div className="absolute inset-0 bg-gray-200 animate-pulse min-h-[150px]" />}
-              </>
-          )}
-      </div>
-    </MotionDiv>
-  );
-};
 
 const Window: React.FC<WindowProps> = ({ project, onClose, zIndex = 20, onFocus, initialX = 0, initialY = 0, canDrag = true }) => {
   const dragControls = useDragControls();
@@ -96,8 +60,6 @@ const Window: React.FC<WindowProps> = ({ project, onClose, zIndex = 20, onFocus,
         { type: 'image' as const, url: project.previewImage }
       ];
   
-  const isSingleItem = mediaList.length === 1;
-  const infoThumbnail = project.thumbnail;
 
   // --- RENDER CONTENT BASED ON APP ID ---
   const renderContent = () => {
@@ -239,31 +201,7 @@ const Window: React.FC<WindowProps> = ({ project, onClose, zIndex = 20, onFocus,
     }
 
     // 5. DEFAULT GALLERY
-    return (
-      <div className="flex-1 overflow-y-auto custom-scrollbar flex flex-col bg-[#fdfdfd]">
-         <div className="p-8 pb-4 bg-white/50 sticky top-0 z-10 backdrop-blur-md border-b border-gray-200/50">
-            <div className="flex items-start gap-6">
-                <div className="w-24 h-24 bg-white rounded-xl overflow-hidden shrink-0 shadow-md border border-gray-100"><img src={infoThumbnail} alt="" className="w-full h-full object-cover" /></div>
-                <div className="flex-1 pt-1">
-                   <h1 className="text-3xl font-bold text-gray-900 mb-1 tracking-tight">{project.title}</h1>
-                   <p className="text-sm font-medium text-blue-600 uppercase tracking-wider mb-3">{project.category}</p>
-                   <p className="text-gray-600 leading-relaxed max-w-3xl">{project.description}</p>
-                </div>
-            </div>
-         </div>
-         <div className="p-8">
-           {isSingleItem ? (
-              <div className="w-full h-[500px] flex items-center justify-center bg-gray-100 rounded-xl border border-black/5 shadow-inner p-4">
-                 {mediaList[0].type === 'video' ? <video src={mediaList[0].url} controls className="h-full object-contain" /> : <img src={mediaList[0].url} className="h-full object-contain" />}
-              </div>
-           ) : (
-              <div className="grid grid-cols-2 gap-6">
-                 {mediaList.map((m, i) => <GalleryMedia key={i} item={m} index={i} />)}
-              </div>
-           )}
-         </div>
-      </div>
-    );
+    return <ProjectGallery key={project.id} project={project} media={mediaList} />;
   };
 
   return (
