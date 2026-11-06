@@ -5,6 +5,7 @@ import { PROJECTS, WALLPAPERS, DOCK_APPS_CONTENT, DEFAULT_WALLPAPER } from './co
 import DesktopIcon from './components/DesktopIcon';
 import Dock from './components/Dock';
 import Window from './components/Window';
+import RandomPhoto from './components/RandomPhoto';
 import Terminal from './components/Terminal';
 import Fireworks from './components/Fireworks';
 import WallpaperPicker from './components/WallpaperPicker';
@@ -33,6 +34,7 @@ const App: React.FC = () => {
   
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isWallpaperPickerOpen, setIsWallpaperPickerOpen] = useState(false);
+  const [isRandomPhotoOpen, setIsRandomPhotoOpen] = useState(false);
   const [wallpaper, setWallpaper] = useState<string>(DEFAULT_WALLPAPER);
   const [showFireworks, setShowFireworks] = useState(false);
   const [gravityEnabled, setGravityEnabled] = useState(false);
@@ -120,6 +122,10 @@ const App: React.FC = () => {
   };
 
   const handleDockIconClick = (appId: string) => {
+    if (appId === 'random-photo') {
+      setIsRandomPhotoOpen(true);
+      return;
+    }
     if (appId === 'terminal') {
       setIsTerminalOpen(true);
       return;
@@ -226,7 +232,8 @@ const App: React.FC = () => {
         currentWallpaper={wallpaper}
       />
 
-      <Dock onAppClick={handleDockIconClick} />
+      <Dock onAppClick={handleDockIconClick} gravityEnabled={gravityEnabled} />
+      {isRandomPhotoOpen && <RandomPhoto onClose={() => setIsRandomPhotoOpen(false)} />}
     </div>
   );
 };

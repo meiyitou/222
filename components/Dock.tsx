@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { DOCK_ITEMS } from '../constants';
 import { Mail, AlertTriangle, Instagram } from 'lucide-react';
 import { motion } from 'framer-motion';
+import DesktopCat from './DesktopCat';
 
 const MotionDiv = motion.div as any;
 const MotionButton = motion.button as any;
@@ -16,6 +17,19 @@ const DockIconGraphic: React.FC<{ type: string }> = ({ type }) => {
   }
 
   switch (type) {
+    case 'random-photo':
+      return (
+        <div className={`${baseClass} bg-gradient-to-b from-[#e7e2d7] to-[#a6a398]`}>
+          <svg viewBox="0 0 40 32" width="38" height="30" aria-hidden="true">
+            <rect x="2" y="5" width="36" height="23" rx="5" fill="#c4c0b5" stroke="#76736c" />
+            <rect x="6" y="9" width="20" height="14" rx="2.5" fill="#212425" />
+            <path d="m8 19 6-6 4 4 3-2 3 4v2H8Z" fill="#8aab9b" />
+            <circle cx="31.5" cy="14" r="3.7" fill="#585b58" />
+            <circle cx="31.5" cy="14" r="1.4" fill="#9b9c95" />
+            <circle cx="31.5" cy="22" r="1.7" fill="#53755c" />
+          </svg>
+        </div>
+      );
     case 'ae':
       return (
         <div className={`${baseClass} bg-[#00005b] text-[#d6bbfb]`}>
@@ -137,9 +151,10 @@ const Separator = () => (
 
 interface DockProps {
   onAppClick: (appId: string) => void;
+  gravityEnabled: boolean;
 }
 
-const Dock: React.FC<DockProps> = ({ onAppClick }) => {
+const Dock: React.FC<DockProps> = ({ onAppClick, gravityEnabled }) => {
   const dockRef = useRef<HTMLDivElement>(null);
   const updateLight = (event: React.PointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== 'mouse') return;
@@ -155,11 +170,11 @@ const Dock: React.FC<DockProps> = ({ onAppClick }) => {
         className="dock-glass"
       >
         <div className="dock-track flex items-center gap-1 px-2.5 py-2.5">
-        {DOCK_ITEMS.map((item, index) => {
-          const showSeparatorAfter = index === 3 || index === 9;
+        {DOCK_ITEMS.map((item) => {
+          const showSeparatorAfter = item.iconType === 'deepseek' || item.iconType === 'mail';
 
           return (
-            <React.Fragment key={index}>
+            <React.Fragment key={item.iconType}>
               <MotionButton
                 type="button"
                 aria-label={item.label}
@@ -183,6 +198,7 @@ const Dock: React.FC<DockProps> = ({ onAppClick }) => {
           );
         })}
         </div>
+        <DesktopCat gravityEnabled={gravityEnabled} />
       </MotionDiv>
     </div>
   );

@@ -1,0 +1,77 @@
+.desktop-cat {
+  position: absolute;
+  z-index: 2;
+  right: 9px;
+  bottom: calc(100% - 6px);
+  width: clamp(72px, 9vw, 104px);
+}
+
+.desktop-cat-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.desktop-cat-button svg {
+  display: block;
+  width: 100%;
+  filter: drop-shadow(0 2px 2px #2d1e1a44);
+}
+
+.desktop-cat-button:focus-visible {
+  outline: 2px solid #377f91;
+  outline-offset: 1px;
+}
+
+.desktop-cat-head, .desktop-cat-tail, .desktop-cat-pose {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.desktop-cat[data-pose='awake'] .desktop-cat-head { transform: translateY(-4px) rotate(-5deg); }
+.desktop-cat[data-pose='awake'] .desktop-cat-tail { animation: desktop-cat-tail 650ms ease-in-out 2; }
+.desktop-cat[data-pose='clinging'] .desktop-cat-head { transform: translateY(-6px); }
+.desktop-cat[data-pose='clinging'] .desktop-cat-pose { animation: desktop-cat-grab 420ms ease-out; }
+
+.desktop-cat-zzz {
+  fill: #fff5df;
+  stroke: #855b41;
+  stroke-width: 2px;
+  paint-order: stroke;
+  font: 700 12px/1 system-ui, sans-serif;
+}
+
+.desktop-cat-bubble {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% - 2px);
+  padding: 3px 8px;
+  border-radius: 10px;
+  background: #fff5e6;
+  color: #694935;
+  box-shadow: 0 2px 8px #34252233;
+  font: 650 11px/1.4 system-ui, sans-serif;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.desktop-cat-bubble:empty { visibility: hidden; }
+
+@keyframes desktop-cat-grab {
+  30% { transform: translateY(-7px) rotate(-7deg); }
+  65% { transform: translateY(1px) scale(1.03, .94); }
+}
+
+@keyframes desktop-cat-tail {
+  50% { transform: rotate(14deg) translateY(-2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-cat[data-pose] .desktop-cat-pose,
+  .desktop-cat[data-pose] .desktop-cat-tail { animation: none; }
+}

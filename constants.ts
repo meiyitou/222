@@ -4,8 +4,8 @@ import { Project, DockItem } from './types';
 export const WALLPAPERS = [
   { 
     id: 'local-custom', 
-    url: 'https://www.meiyitou.top/wp-content/uploads/2025/11/Gemini_Generated_Image_v5u4v7v5u4v7v5u4_2025-11-26_19-38-17-scaled.png', 
-    label: 'My Custom Wallpaper' 
+    url: '/desktop-wallpaper.png',
+    label: '黑白电影感点烟肖像'
   },
   { 
     id: 'starlight', 
@@ -321,6 +321,7 @@ export const DOCK_ITEMS: DockItem[] = [
   { label: 'Gemini', iconType: 'gemini' },
   { label: 'Claude', iconType: 'claude' },
   { label: 'DeepSeek', iconType: 'deepseek' },
+  { label: '随手翻一张', iconType: 'random-photo' },
   { label: 'Terminal', iconType: 'terminal' },
   // Removed Solar System
   { label: 'Notes', iconType: 'notes' },
